@@ -50,7 +50,7 @@ const SelectClaimType = () => {
                             {!isTypePicked && <option>Вибрати опцiю</option>}
                             <option>РОЗЛУЧЕННЯ</option>
                         </select>
-                        {isTypePicked && <button onClick={handleContinue} className='mt-6 bg-[#1890FF] h-10 rounded'>Далi</button>}
+                        {isTypePicked && <button onClick={handleContinue} className='mt-6 bg-mainBlue h-10 rounded'>Далi</button>}
                     </div>
                 </div>
             </main>
