@@ -1,8 +1,8 @@
 'use client';
 import { useState } from "react";
 
-const PersonalDataForm = () => {
-
+const PersonalDataForm = ({ progressIndex, handleSetIndex }) => {
+    
     const [isAddressMatch, setIsAddressMatch] = useState(false);
 
     return (
@@ -161,7 +161,7 @@ const PersonalDataForm = () => {
                   className="w-full border p-2 rounded"
                 />
               </div>
-              <button className="w-full mt-6 bg-mainBlue text-white px-4 py-2 rounded">
+              <button type="button" onClick={() => handleSetIndex(progressIndex + 1)} className="w-full mt-6 bg-mainBlue text-white px-4 py-2 rounded">
                 Далі
               </button>
             </form>
