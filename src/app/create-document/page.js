@@ -4,6 +4,7 @@ import Header from "@component/components/Header";
 import Footer from "@component/components/Footer";
 import PersonalDataForm from "@component/forms/PersonalDataForm";
 import DetailsForm from "@component/forms/DetailsForm";
+import PaymentForm from "@component/forms/PaymentForm";
 
 const CreateDocument = () => {
 
@@ -41,6 +42,7 @@ const CreateDocument = () => {
           <main className="flex-1">
             {progressIndex === 1 && <PersonalDataForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
             {progressIndex === 2 && <DetailsForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
+            {progressIndex === 3 && <PaymentForm />}
           </main>
         </div>
         <Footer />

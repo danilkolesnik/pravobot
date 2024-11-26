@@ -20,3 +20,33 @@ body {
   background: var(--background);
   font-family: var(--font-anonymous-pro);
 }
+
+#payment_window {
+  scrollbar-width: thin; /* Для Firefox */
+  scrollbar-color: white transparent; /* Цвет ползунка и фона */
+}
+
+#payment_window::-webkit-scrollbar {
+  width: 10px; /* Ширина скролл-бара */
+  height: 10px; /* Для горизонтального скролла */
+}
+
+#payment_window::-webkit-scrollbar-track {
+  background: transparent; /* Фон трека */
+}
+
+#payment_window::-webkit-scrollbar-thumb {
+  background: white; /* Цвет ползунка */
+  border-radius: 10px; /* Закругление ползунка */
+  border: 2px solid transparent; /* Добавить пространство вокруг */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1); /* Для контраста */
+}
+
+#payment_window::-webkit-scrollbar-thumb:hover {
+  background: #e0e0e0; /* Цвет ползунка при наведении */
+}
+
+/* Убираем стрелочки */
+#payment_window::-webkit-scrollbar-button {
+  display: none;
+}
