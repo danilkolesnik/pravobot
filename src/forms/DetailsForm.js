@@ -1,6 +1,8 @@
 
-const DetailsForm = ({ progressIndex, handleSetIndex }) => {
+const DetailsForm = ({ progressIndex, handleSetIndex, documentData }) => {
     
+    console.log(documentData);
+
     return (
         <div className='flex flex-row gap-8 mt-8'>
             <nav className='w-3/5 flex flex-col gap-2 items-left'>
@@ -9,52 +11,30 @@ const DetailsForm = ({ progressIndex, handleSetIndex }) => {
             </nav>
 
             <form className="w-full">
-                {/* [MOCKUP] Деталi Шлюбу */}
-                <div className="flex flex-wrap gap-3">
-                    <label className='text-l text-black'><span style={{color: 'red'}}>* </span>Деталi Шлюбу</label>
-                    <input
-                    type="text"
-                    placeholder="Місце реєстрації шлюбу (РАКС)"
-                    className="w-full border p-2 rounded"
-                    />
-                    <input
-                    type="text"
-                    placeholder="Рiк"
-                    className="w-1/4 grow border p-2 rounded"
-                    />
-                    <input
-                    type="text"
-                    placeholder="Мiсяць"
-                    className="w-1/4 grow border p-2 rounded"
-                    />
-                    <input
-                    type="text"
-                    placeholder="День"
-                    className="w-1/4 grow border p-2 rounded"
-                    />
-                </div>
+                {documentData && documentData.fieldsSlider.map((field) => (
+                    <div className="flex flex-wrap gap-3" key={field.id}>
+                        <label className='text-l text-black'><span style={{color: 'red'}}>* </span>{field.SectionTitle}</label>
+                        {field.slider.map((slide) => (
+                            <input
+                                key={slide.id}
+                                type="text"
+                                placeholder={slide.FieldTitle}
+                                className="w-full border p-2 rounded text-gray-800"
+                            />
+                        ))}
+                    </div>
+                ))}
 
-                {/* [MOCKUP] Чи згоден відповідач на розірвання шлюбу? */}
-                <div className="mt-6 flex flex-wrap gap-3">
-                    <label className='text-l text-black'><span style={{color: 'red'}}>* </span>Чи згоден відповідач на розірвання шлюбу?</label>
-                    <select
-                        className="w-full border p-2 rounded"
-                    >
-                        <option>Так</option>
-                        <option>Нi</option>
-                    </select>
-                </div>
-
-                {/* [MOCKUP] Чи є сумісні діти у шлюбі?  */}
-                <div className="mt-6 flex flex-wrap gap-3">
-                    <label className='text-l text-black'><span style={{color: 'red'}}>* </span>Чи є сумісні діти у шлюбі?</label>
-                    <select
-                        className="w-full border p-2 rounded"
-                    >
-                        <option>Так</option>
-                        <option>Нi</option>
-                    </select>
-                </div>
+                {documentData && documentData.questionsSlider.map((question) => (
+                    <div className="mt-6 flex flex-wrap gap-3" key={question.id}>
+                        <label className='text-l text-black'><span style={{color: 'red'}}>* </span>{question.Question}</label>
+                        <select
+                                className="w-full border p-2 rounded text-gray-800"
+                        >
+                            {question.slider.map((answer) => <option key={answer.id}>{answer.Answer}</option> )}
+                        </select>
+                    </div>
+                ))}
 
                 <button type="button" onClick={() => handleSetIndex(progressIndex + 1)} className="w-full mt-6 bg-mainBlue text-white px-4 py-2 rounded">
                     Далі

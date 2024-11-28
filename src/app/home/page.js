@@ -14,33 +14,34 @@ const Home = () => {
     const [selectedType, setSelectedType] = useState('');
     const isTypePicked = selectedType !== '';
 
-    const [contractData, setContractData] = useState(null);
+    const [documentData, setDocumentData] = useState(null);
 
-    const getContracts = async () => {
+    const getDocuments = async () => {
         try {
-            const res = await fetch(`/api/contracts`);
+            const res = await fetch(`/api/documents`);
             if (!res.ok) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
             const { docs } = await res.json();
             setIsLoading(false);
-            setContractData(docs);
-            console.log(docs);
+            setDocumentData(docs);
         } catch (error) {
-            console.error('Error fetching contracts:', error);
+            console.error('Error fetching documents:', error);
         }
     };
 
     useEffect(() => {
-        getContracts();
+        getDocuments();
     },[]);
     
     const handleChange = (event) => {
-        setSelectedType(event.target.value);
+        const selectedIndex = event.target.value; // индекс выбранного option
+        console.log('Selected index:', selectedIndex);
+        setSelectedType(selectedIndex);
     };
 
     const handleContinue = () => {
-        router.push('/create-document');
+        router.push(`/create-document/${documentData[selectedType].Url}`);
     };
 
     return (
@@ -68,16 +69,20 @@ const Home = () => {
                                     Тип позову
                                 </label>
                                 <select
-                                    id='lawsuit-type'
-                                    className='text-gray-600 border border-gray-300 rounded px-4 py-2'
+                                    id="lawsuit-type"
+                                    className="text-gray-600 border border-gray-300 rounded px-4 py-2"
                                     value={selectedType}
                                     onChange={handleChange}
                                 >
-                                    {!isTypePicked && <option>Вибрати опцiю</option>}
-                                    {contractData && contractData.map((item) => (
-                                        <option key={item.id}>{item.ScenarioTitle}</option>
-                                    ))} 
+                                    {!isTypePicked && <option value="">Вибрати опцiю</option>}
+                                    {documentData &&
+                                        documentData.map((item, index) => (
+                                            <option key={item.id} value={index}>
+                                                {item.ScenarioTitle}
+                                            </option>
+                                        ))}
                                 </select>
+
                                 {isTypePicked && <button onClick={handleContinue} className='mt-6 bg-mainBlue h-10 rounded'>Далi</button>}
                             </div>
                         </div>
