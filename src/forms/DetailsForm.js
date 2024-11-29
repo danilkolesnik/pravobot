@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-const DetailsForm = ({ progressIndex, handleSetIndex, documentData, setUpdatedSample }) => {
-
-    const [selectedAnswers, setSelectedAnswers] = useState({});
+const DetailsForm = ({ 
+        progressIndex, 
+        handleSetIndex,
+        selectedAnswers, 
+        setSelectedAnswers,
+        documentData, 
+        updatedSample, 
+        setUpdatedSample 
+    }) => {
 
     const handleAnswerChange = (questionShortcode, FinalField) => {
         setSelectedAnswers((prevAnswers) => ({
@@ -19,7 +25,6 @@ const DetailsForm = ({ progressIndex, handleSetIndex, documentData, setUpdatedSa
     };
 
     const handleNextStep = () => {
-        let updatedSample = documentData.Sample;
         Object.keys(selectedAnswers).forEach((shortcode) => {
             updatedSample = updatedSample.replace(shortcode, selectedAnswers[shortcode]);
         });

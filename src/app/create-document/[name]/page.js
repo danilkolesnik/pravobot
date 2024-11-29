@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Loader } from "@component/ui/loader";
 import Header from "@component/components/Header";
 import Footer from "@component/components/Footer";
@@ -11,14 +12,17 @@ import DocumentPreview from "@component/forms/DocumentPreview";
 const CreateDocument = ({ params }) => {
   
   const { name } = React.use(params)
+  const router = useRouter();
 
   const [progressIndex, setProgressIndex] = useState(1);
   
   const [isLoading, setIsLoading] = useState(true);
   const [documentData, setDocumentData] = useState(null);
   const [updatedSample, setUpdatedSample] = useState(null);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  useEffect(() => { console.log(selectedAnswers); }, [selectedAnswers]);
 
-  // useEffect(() => {console.log(updatedSample)},[updatedSample]);
+  useEffect(() => {console.log(updatedSample)},[updatedSample]);
 
   const getDocuments = async () => {
     try {
@@ -58,15 +62,15 @@ const CreateDocument = ({ params }) => {
           <Header title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />
           <div className="flex flex-col min-h-screen bg-white w-3/5 mt-8 mx-auto">
             <nav className="h-12 flex flex-row gap-3">
-                <button className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 0 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
+                <button onClick={() => router.push('/home')} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 0 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
                   <span>1 ТИП ПОЗОВУ</span>
                   {progressIndex >= 1 && <span>✓</span>}
                 </button>
-                <button className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 1 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
+                <button onClick={() => setProgressIndex(1)} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 1 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
                   <span>2 Персональні дані</span>
                   {progressIndex >= 2 && <span>✓</span>}
                 </button>
-                <button className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 2 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
+                <button onClick={() => setProgressIndex(2)} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 2 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
                   <span>3 Деталі справи</span>
                   {progressIndex >= 3 && <span>✓</span>}
                 </button>
@@ -79,8 +83,25 @@ const CreateDocument = ({ params }) => {
                 </button>
             </nav>
             <main className="flex-1">
-              {progressIndex === 1 && <PersonalDataForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
-              {progressIndex === 2 && <DetailsForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} documentData={documentData} setUpdatedSample={setUpdatedSample} />}
+              {progressIndex === 1 && 
+                <PersonalDataForm 
+                  progressIndex={progressIndex} 
+                  handleSetIndex={handleSetIndex} 
+                  selectedAnswers={selectedAnswers} 
+                  setSelectedAnswers={setSelectedAnswers} 
+                  documentData={documentData} 
+                  setUpdatedSample={setUpdatedSample} 
+                />}
+              {progressIndex === 2 && 
+                <DetailsForm 
+                  progressIndex={progressIndex} 
+                  handleSetIndex={handleSetIndex}
+                  selectedAnswers={selectedAnswers} 
+                  setSelectedAnswers={setSelectedAnswers} 
+                  documentData={documentData} 
+                  updatedSample={updatedSample} 
+                  setUpdatedSample={setUpdatedSample} 
+                />}
               {progressIndex === 3 && <PaymentForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
               {progressIndex === 4 && <DocumentPreview sample={updatedSample} />}
             </main>

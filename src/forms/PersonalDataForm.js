@@ -1,65 +1,107 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const PersonalDataForm = ({ progressIndex, handleSetIndex }) => {
+const PersonalDataForm = ({ 
+    progressIndex, 
+    handleSetIndex, 
+    selectedAnswers, 
+    setSelectedAnswers, 
+    documentData, 
+    setUpdatedSample 
+  }) => {
     
+    const [person, setPerson] = useState('COMPLAINANT');
     const [isAddressMatch, setIsAddressMatch] = useState(false);
+    
+    const handleDataChange = (shortcode, FinalField) => {
+      setSelectedAnswers((prevAnswers) => ({
+          ...prevAnswers,
+          [shortcode]: FinalField,
+      }));
+    };
+
+    const handleNextStep = () => {
+      if (person === 'COMPLAINANT') {
+        setPerson('DEFENDANT');
+      } else {
+        let updatedSample = documentData.Sample;
+        Object.keys(selectedAnswers).forEach((shortcode) => {
+            updatedSample = updatedSample.replace(shortcode, selectedAnswers[shortcode]);
+        });
+        setUpdatedSample(updatedSample);
+        handleSetIndex(progressIndex + 1);
+      }
+    };
 
     return (
           <div className='flex flex-row gap-8 mt-8'>
             <nav className='w-3/5 flex flex-col gap-2 items-left'>
-                <button className='p-2 text-left bg-mainBlue'>2.1 ДАННI ПОЗИВАЧА</button>
-                <button className='p-2 text-left text-gray-500 border border-gray-400'>2.2 ДАННI ВIДПОВIДАЧА</button>
+                <button onClick={() => setPerson('COMPLAINANT')} className={`p-2 text-left ${person === 'COMPLAINANT' ? 'bg-mainBlue' : 'text-gray-500 border border-gray-400'}`}>2.1 ДАННI ПОЗИВАЧА</button>
+                <button onClick={() => setPerson('DEFENDANT')} className={`p-2 text-left ${person === 'DEFENDANT' ? 'bg-mainBlue' : 'text-gray-500 border border-gray-400'}`}>2.2 ДАННI ВIДПОВIДАЧА</button>
             </nav>
 
             <form className="w-full">
               {/* ПIБ Позивача */}
               <div className="flex flex-col gap-3">
-                <label className='text-l text-black'><span style={{color: 'red'}}>* </span>ПIБ Позивача</label>
+                <label className='text-l text-black'><span style={{color: 'red'}}>* </span>ПIБ {person === 'COMPLAINANT' ? 'Позивача' : 'Вiдповiдача'}</label>
                 <input
+                  value={selectedAnswers[`[${person}_NAME]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_NAME]`, e.target.value)}
                   type="text"
                   placeholder="Ім'я"
-                  className="border p-2 rounded"
+                  className="text-gray-900 border p-2 rounded"
                 />
                 <input
+                  value={selectedAnswers[`[${person}_LASTNAME]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_LASTNAME]`, e.target.value)}
                   type="text"
                   placeholder="Прізвище"
-                  className="border p-2 rounded"
+                  className="text-gray-900 border p-2 rounded"
                 />
                 <input
+                  value={selectedAnswers[`[${person}_SURNAME]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_SURNAME]`, e.target.value)}
                   type="text"
                   placeholder="По батькові"
-                  className="border p-2 rounded"
+                  className="text-gray-900 border p-2 rounded"
                 />
               </div>
               {/* Дата народження */}
               <div className="mt-6 flex flex-col gap-3">
-                <label className='text-l text-black'><span style={{color: 'red'}}>* </span>Дата народження</label>
+                <label className='text-l text-black'><span style={{color: 'red'}}>* </span>Дата народження {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}</label>
                 <div className="grid md:grid-cols-3 gap-4">
                     <input
-                    type="text"
-                    placeholder="Рік"
-                    className="border p-2 rounded"
+                      value={selectedAnswers[`[${person}_BIRTH_YEAR]`] || ''}
+                      onChange={(e) => handleDataChange(`[${person}_BIRTH_YEAR]`, e.target.value)}
+                      type="text"
+                      placeholder="Рік"
+                      className="text-gray-900 border p-2 rounded"
                     />
                     <input
-                    type="text"
-                    placeholder="Місяць"
-                    className="border p-2 rounded"
+                      value={selectedAnswers[`[${person}_BIRTH_MONTH]`] || ''}
+                      onChange={(e) => handleDataChange(`[${person}_BIRTH_MONTH]`, e.target.value)}
+                      type="text"
+                      placeholder="Місяць"
+                      className="text-gray-900 border p-2 rounded"
                     />
                     <input
-                    type="text"
-                    placeholder="День"
-                    className="border p-2 rounded"
+                      value={selectedAnswers[`[${person}_BIRTH_DAY]`] || ''}
+                      onChange={(e) => handleDataChange(`[${person}_BIRTH_DAY]`, e.target.value)}
+                      type="text"
+                      placeholder="День"
+                      className="text-gray-900 border p-2 rounded"
                     />
                 </div>
               </div>
-              {/* Паспортнi данi */}
+              {/* Паспортнi данi Позивача*/}
               <div className="mt-6 flex flex-col gap-3">
-                <label className='text-l text-black'><span style={{color: 'red'}}>* </span>Паспортнi данi</label>
+                <label className='text-l text-black'><span style={{color: 'red'}}>* </span>Паспортнi данi {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}</label>
                 <input
+                  value={selectedAnswers[`[${person}_PASSPORT_SERIES]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_PASSPORT_SERIES]`, e.target.value)}
                   type="text"
                   placeholder="СЕРІЯ"
-                  className="border p-2 rounded"
+                  className="text-gray-900 border p-2 rounded"
                 />
                 <input
                   type="text"
@@ -75,7 +117,7 @@ const PersonalDataForm = ({ progressIndex, handleSetIndex }) => {
               {/* Адреса Прописки Позивача */}
               <div className="mt-6 flex flex-wrap gap-3">
                 <label className="w-full text-l text-black">
-                  <span style={{ color: 'red' }}>* </span>Адреса Прописки Позивача
+                  <span style={{ color: 'red' }}>* </span>Адреса прописки {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}
                 </label>
                 <input
                   type="text"
@@ -116,7 +158,7 @@ const PersonalDataForm = ({ progressIndex, handleSetIndex }) => {
               {!isAddressMatch && (
                 <div className="mt-6 flex flex-wrap gap-3">
                   <label className="w-full text-l text-black">
-                    <span style={{ color: 'red' }}>* </span>Адреса Проживання Позивача
+                    <span style={{ color: 'red' }}>* </span>Адреса проживання {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}
                   </label>
                   <input
                     type="text"
@@ -148,7 +190,7 @@ const PersonalDataForm = ({ progressIndex, handleSetIndex }) => {
               {/* Контактнi данi */}
               <div className="mt-6 flex flex-wrap gap-3">
                 <label className="w-full text-l text-black">
-                  <span style={{ color: 'red' }}>* </span>Контактнi данi
+                  <span style={{ color: 'red' }}>* </span>Контактнi данi {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}
                 </label>
                 <input
                   type="text"
@@ -161,7 +203,7 @@ const PersonalDataForm = ({ progressIndex, handleSetIndex }) => {
                   className="w-full border p-2 rounded"
                 />
               </div>
-              <button type="button" onClick={() => handleSetIndex(progressIndex + 1)} className="w-full mt-6 bg-mainBlue text-white px-4 py-2 rounded">
+              <button type="button" onClick={handleNextStep} className="w-full mt-6 bg-mainBlue text-white px-4 py-2 rounded">
                 Далі
               </button>
             </form>
