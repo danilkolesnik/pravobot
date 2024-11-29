@@ -1,7 +1,9 @@
 import { renderDocument } from "@component/services/renderDocument";
 
-const DocumentPreview = ({ documentData }) => {
+const DocumentPreview = ({ sample }) => {
 
+    console.log(sample);
+    
     return (
         <div className="flex flex-col items-center gap-8 mt-8">
             <div className="text-center">
@@ -10,7 +12,7 @@ const DocumentPreview = ({ documentData }) => {
             </div>
             <div
                 className="w-full border border-black p-4 text-gray-900"
-                dangerouslySetInnerHTML={{ __html: renderDocument(documentData.Sample) }}
+                dangerouslySetInnerHTML={{ __html: renderDocument(sample) }}
             ></div>
         </div>
     );

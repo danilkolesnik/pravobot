@@ -12,11 +12,14 @@ const CreateDocument = ({ params }) => {
   
   const { name } = React.use(params)
 
-  const [progressIndex, setProgressIndex] = useState(4);
+  const [progressIndex, setProgressIndex] = useState(2);
   
   const [isLoading, setIsLoading] = useState(true);
   const [documentData, setDocumentData] = useState(null);
-  
+  const [updatedSample, setUpdatedSample] = useState(null);
+
+  // useEffect(() => {console.log(updatedSample)},[updatedSample]);
+
   const getDocuments = async () => {
     try {
       const res = await fetch(`/api/documents`);
@@ -29,6 +32,7 @@ const CreateDocument = ({ params }) => {
 
       if (matchingDocument) {
         setDocumentData(matchingDocument);
+        console.log(matchingDocument);
       } else {
         console.log("No matching document found for URL:", url);
       };
@@ -77,9 +81,9 @@ const CreateDocument = ({ params }) => {
             </nav>
             <main className="flex-1">
               {progressIndex === 1 && <PersonalDataForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
-              {progressIndex === 2 && <DetailsForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} documentData={documentData}/>}
+              {progressIndex === 2 && <DetailsForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} documentData={documentData} setUpdatedSample={setUpdatedSample} />}
               {progressIndex === 3 && <PaymentForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
-              {progressIndex === 4 && <DocumentPreview documentData={documentData} />}
+              {progressIndex === 4 && <DocumentPreview sample={updatedSample} />}
             </main>
           </div>
           <Footer />
