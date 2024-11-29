@@ -1,7 +1,5 @@
 
 const DetailsForm = ({ progressIndex, handleSetIndex, documentData }) => {
-    
-    console.log(documentData);
 
     return (
         <div className='flex flex-row gap-8 mt-8'>

@@ -4,7 +4,8 @@ import McAfeeIcon from "@component/assets/icons/mcAfeeIcon";
 import NortonSecuredIcon from "@component/assets/icons/nortonSecuredIcon";
 import VisaIcon from "@component/assets/icons/visaIcon";
 
-const PaymentForm = () => {
+const PaymentForm = ({ progressIndex, handleSetIndex }) => {
+    
     return (
         <div className='flex flex-col gap-16'>
             <div className='flex flex-row gap-6 mt-8'>
@@ -50,7 +51,7 @@ const PaymentForm = () => {
                         />
                         <label className='text-s'>Согласие на обработку персональных данных</label>
                     </div>
-                    <button type="button" className="w-full mt-6 bg-white text-mainBlue px-4 py-2">
+                    <button type="button" onClick={() => handleSetIndex(progressIndex + 1)} className="w-full mt-6 bg-white text-mainBlue px-4 py-2">
                         Сплатити
                     </button>
                 </div>

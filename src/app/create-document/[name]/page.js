@@ -6,12 +6,13 @@ import Footer from "@component/components/Footer";
 import PersonalDataForm from "@component/forms/PersonalDataForm";
 import DetailsForm from "@component/forms/DetailsForm";
 import PaymentForm from "@component/forms/PaymentForm";
+import DocumentPreview from "@component/forms/DocumentPreview";
 
 const CreateDocument = ({ params }) => {
   
   const { name } = React.use(params)
 
-  const [progressIndex, setProgressIndex] = useState(2);
+  const [progressIndex, setProgressIndex] = useState(4);
   
   const [isLoading, setIsLoading] = useState(true);
   const [documentData, setDocumentData] = useState(null);
@@ -77,7 +78,8 @@ const CreateDocument = ({ params }) => {
             <main className="flex-1">
               {progressIndex === 1 && <PersonalDataForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
               {progressIndex === 2 && <DetailsForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} documentData={documentData}/>}
-              {progressIndex === 3 && <PaymentForm />}
+              {progressIndex === 3 && <PaymentForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
+              {progressIndex === 4 && <DocumentPreview documentData={documentData} />}
             </main>
           </div>
           <Footer />
