@@ -12,7 +12,7 @@ const CreateDocument = ({ params }) => {
   
   const { name } = React.use(params)
 
-  const [progressIndex, setProgressIndex] = useState(2);
+  const [progressIndex, setProgressIndex] = useState(1);
   
   const [isLoading, setIsLoading] = useState(true);
   const [documentData, setDocumentData] = useState(null);
@@ -32,7 +32,6 @@ const CreateDocument = ({ params }) => {
 
       if (matchingDocument) {
         setDocumentData(matchingDocument);
-        console.log(matchingDocument);
       } else {
         console.log("No matching document found for URL:", url);
       };

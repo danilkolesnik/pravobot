@@ -11,6 +11,7 @@ const DocumentPreview = ({ sample }) => {
                 <p className="text-gray-800 mt-2">Ваш позов на розлучення готовий</p>
             </div>
             <div
+                id='document_preview'
                 className="w-full border border-black p-4 text-gray-900"
                 dangerouslySetInnerHTML={{ __html: renderDocument(sample) }}
             ></div>

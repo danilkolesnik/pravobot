@@ -21,6 +21,7 @@ body {
   font-family: var(--font-anonymous-pro);
 }
 
+
 #payment_window {
   scrollbar-width: thin; /* Для Firefox */
   scrollbar-color: white transparent; /* Цвет ползунка и фона */
