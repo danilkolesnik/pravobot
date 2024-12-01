@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const DetailsForm = ({ 
         progressIndex, 
@@ -32,7 +32,6 @@ const DetailsForm = ({
         handleSetIndex(progressIndex + 1);
     };
 
-    useEffect(() => { console.log(selectedAnswers) },[selectedAnswers]);
     return (
         <div className="flex flex-row gap-8 mt-8">
             <nav className="w-3/5 flex flex-col gap-2 items-left">

@@ -11,7 +11,7 @@ import DocumentPreview from "@component/forms/DocumentPreview";
 
 const CreateDocument = ({ params }) => {
   
-  const { name } = React.use(params)
+  const { name } = React.use(params);
   const router = useRouter();
 
   const [progressIndex, setProgressIndex] = useState(1);
