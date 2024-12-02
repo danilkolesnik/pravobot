@@ -41,7 +41,7 @@ const PersonalDataForm = ({
             </nav>
 
             <form className="w-full">
-              {/* ПIБ Позивача */}
+              {/* ПIБ */}
               <div className="flex flex-col gap-3">
                 <label className='text-l text-black'><span style={{color: 'red'}}>* </span>ПIБ {person === 'COMPLAINANT' ? 'Позивача' : 'Вiдповiдача'}</label>
                 <input
@@ -66,7 +66,7 @@ const PersonalDataForm = ({
                   className="text-gray-900 border p-2 rounded"
                 />
               </div>
-              {/* Дата народження */}
+              {/* Дата */}
               <div className="mt-6 flex flex-col gap-3">
                 <label className='text-l text-black'><span style={{color: 'red'}}>* </span>Дата народження {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}</label>
                 <div className="grid md:grid-cols-3 gap-4">
@@ -93,7 +93,7 @@ const PersonalDataForm = ({
                     />
                 </div>
               </div>
-              {/* Паспортнi данi Позивача*/}
+              {/* Паспортнi данi */}
               <div className="mt-6 flex flex-col gap-3">
                 <label className='text-l text-black'><span style={{color: 'red'}}>* </span>Паспортнi данi {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}</label>
                 <input
@@ -104,42 +104,56 @@ const PersonalDataForm = ({
                   className="text-gray-900 border p-2 rounded"
                 />
                 <input
+                  value={selectedAnswers[`[${person}_PASSPORT_NUMBER]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_PASSPORT_NUMBER]`, e.target.value)}
                   type="text"
                   placeholder="Номер Паспорту"
                   className="border p-2 rounded"
                 />
                 <input
+                  value={selectedAnswers[`[${person}_ID_NUMBER]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_ID_NUMBER]`, e.target.value)}
                   type="text"
                   placeholder="Ідентифікаційний номер"
                   className="border p-2 rounded"
                 />
               </div>
-              {/* Адреса Прописки Позивача */}
+              {/* Адреса Прописки */}
               <div className="mt-6 flex flex-wrap gap-3">
                 <label className="w-full text-l text-black">
                   <span style={{ color: 'red' }}>* </span>Адреса прописки {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}
                 </label>
                 <input
+                  value={selectedAnswers[`[${person}_REGISTRATION_INDEX]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_REGISTRATION_INDEX]`, e.target.value)}
                   type="text"
                   placeholder="Індекс"
                   className="grow-0 border p-2 rounded"
                 />
                 <input
+                  value={selectedAnswers[`[${person}_REGISTRATION_CITY]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_REGISTRATION_CITY]`, e.target.value)}
                   type="text"
                   placeholder="Місто"
                   className="grow border p-2 rounded"
                 />
                 <input
+                  value={selectedAnswers[`[${person}_REGISTRATION_STREET]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_REGISTRATION_STREET]`, e.target.value)}
                   type="text"
                   placeholder="Вулиця"
                   className="w-1/2 border p-2 rounded"
                 />
                 <input
+                  value={selectedAnswers[`[${person}_REGISTRATION_HOUSE]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_REGISTRATION_HOUSE]`, e.target.value)}
                   type="text"
                   placeholder="Будинок"
                   className="grow w-1/5 border p-2 rounded"
                 />
                 <input
+                  value={selectedAnswers[`[${person}_REGISTRATION_FLAT_NUMBER]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_REGISTRATION_FLAT_NUMBER]`, e.target.value)}
                   type="text"
                   placeholder="Квартира"
                   className="grow w-1/5 border p-2 rounded"
@@ -154,33 +168,43 @@ const PersonalDataForm = ({
                   <label className='text-gray-900'>Співпадає з фактичною адресою проживання</label>
                 </div>
               </div>
-              {/* Адреса Проживання Позивача */}
+              {/* Адреса Проживання */}
               {!isAddressMatch && (
                 <div className="mt-6 flex flex-wrap gap-3">
                   <label className="w-full text-l text-black">
                     <span style={{ color: 'red' }}>* </span>Адреса проживання {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}
                   </label>
                   <input
+                    value={selectedAnswers[`[${person}_ACTUAL_INDEX]`] || ''}
+                    onChange={(e) => handleDataChange(`[${person}_ACTUAL_INDEX]`, e.target.value)}
                     type="text"
                     placeholder="Індекс"
                     className="grow-0 border p-2 rounded"
                   />
                   <input
+                    value={selectedAnswers[`[${person}_ACTUAL_CITY]`] || ''}
+                    onChange={(e) => handleDataChange(`[${person}_ACTUAL_CITY]`, e.target.value)}
                     type="text"
                     placeholder="Місто"
                     className="grow border p-2 rounded"
                   />
                   <input
+                    value={selectedAnswers[`[${person}_ACTUAL_STREET]`] || ''}
+                    onChange={(e) => handleDataChange(`[${person}_ACTUAL_STREET]`, e.target.value)}
                     type="text"
                     placeholder="Вулиця"
                     className="w-1/2 border p-2 rounded"
                   />
                   <input
+                    value={selectedAnswers[`[${person}_ACTUAL_HOUSE]`] || ''}
+                    onChange={(e) => handleDataChange(`[${person}_ACTUAL_HOUSE]`, e.target.value)}
                     type="text"
                     placeholder="Будинок"
                     className="grow w-1/5 border p-2 rounded"
                   />
                   <input
+                    value={selectedAnswers[`[${person}_ACTUAL_FLAT]`] || ''}
+                    onChange={(e) => handleDataChange(`[${person}_ACTUAL_FLAT]`, e.target.value)}
                     type="text"
                     placeholder="Квартира"
                     className="grow w-1/5 border p-2 rounded"
@@ -193,11 +217,15 @@ const PersonalDataForm = ({
                   <span style={{ color: 'red' }}>* </span>Контактнi данi {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}
                 </label>
                 <input
+                  value={selectedAnswers[`[${person}_PHONE_NUMBER]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_PHONE_NUMBER]`, e.target.value)}
                   type="text"
                   placeholder="Номер телефону"
                   className="w-full border p-2 rounded"
                 />
                 <input
+                  value={selectedAnswers[`[${person}_EMAIL]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_EMAIL]`, e.target.value)}
                   type="email"
                   placeholder="Електронна пошта"
                   className="w-full border p-2 rounded"
