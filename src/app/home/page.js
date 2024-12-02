@@ -41,7 +41,7 @@ const Home = () => {
     };
 
     const handleContinue = () => {
-        router.push(`/create-document/${documentData[selectedType].Url}`);
+        router.push(`/create-document?document=${documentData[selectedType].Url}`);
     };
 
     return (

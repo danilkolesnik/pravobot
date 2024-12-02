@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Loader } from "@component/ui/loader";
 import Header from "@component/components/Header";
 import Footer from "@component/components/Footer";
@@ -10,12 +10,12 @@ import PaymentForm from "@component/forms/PaymentForm";
 import DocumentPreview from "@component/forms/DocumentPreview";
 
 const CreateDocument = ({ params }) => {
-  
-  const { name } = React.use(params);
+  // const { name } = params;
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const document = searchParams.get('document');
 
   const [progressIndex, setProgressIndex] = useState(1);
-  
   const [isLoading, setIsLoading] = useState(true);
   const [documentData, setDocumentData] = useState(null);
   const [updatedSample, setUpdatedSample] = useState(null);
@@ -31,7 +31,7 @@ const CreateDocument = ({ params }) => {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       const { docs } = await res.json();
-      const url = '/' + name;
+      const url = document;
       const matchingDocument = docs.find(document => document.Url === url);
 
       if (matchingDocument) {
@@ -52,7 +52,7 @@ const CreateDocument = ({ params }) => {
   const handleSetIndex = (index) => {
     setProgressIndex(index);
   };
-  
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-white">
       {isLoading ? (
