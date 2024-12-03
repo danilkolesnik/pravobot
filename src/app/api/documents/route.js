@@ -2,6 +2,8 @@ import axios from 'axios';
 import { NextResponse } from 'next/server';
 import { URL } from '@component/utils/constants';
 
+export const dynamic = 'force-static';
+
 export async function GET() {
     try {
         const response = await axios.get(`${URL}/api/scenarios-collection`, {
