@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Loader } from "@component/ui/loader";
 import Header from "@component/components/Header";
 import Footer from "@component/components/Footer";
@@ -12,8 +12,6 @@ import DocumentPreview from "@component/forms/DocumentPreview";
 const CreateDocument = () => {
 
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const documentName = searchParams.get('document');
 
   const [progressIndex, setProgressIndex] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,19 +19,14 @@ const CreateDocument = () => {
   const [updatedSample, setUpdatedSample] = useState(null);
   const [selectedAnswers, setSelectedAnswers] = useState({});
 
-  useEffect(() => { console.log(selectedAnswers); }, [selectedAnswers]);
-  useEffect(() => { console.log(updatedSample); }, [updatedSample]);
-
-  const getDocuments = async () => {
+  const getDocuments = async (name) => {
     try {
       const res = await fetch(`/api/documents`);
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       const { docs } = await res.json();
-      const url = documentName;
-      console.log('URL:', url);
-      const matchingDocument = docs.find(document => document.Url === url);
+      const matchingDocument = docs.find(document => document.Url === name);
 
       if (matchingDocument) {
         setDocumentData(matchingDocument);
@@ -46,13 +39,27 @@ const CreateDocument = () => {
     }
   };
 
-  useEffect(() => {
-    getDocuments();
-  }, []);
-
   const handleSetIndex = (index) => {
     setProgressIndex(index);
   };
+
+  const getProgressName = (index) => {
+    const names = [
+        "Тип позову", 
+        "Персональнi данi",
+        "Деталi справи",
+        "Онлайн-оплата",
+        "Готовий позов"
+    ];
+    return names[index-1] || "Невiдомий етап"; 
+  };
+
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const documentName = queryString.split('=')[1];
+    getDocuments(documentName);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-white">
@@ -62,28 +69,30 @@ const CreateDocument = () => {
         ) : documentData ? (
           <>
             <Header title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />
-            <div className="flex flex-col min-h-screen bg-white w-3/5 mt-8 mx-auto">
-              <nav className="h-12 flex flex-row gap-3">
+            <div className="flex flex-col min-h-screen bg-white w-4/5 md:w-3/5 mt-8 mx-auto">
+              <nav className="h-12 hidden md:flex flex-row gap-3">
                 <button onClick={() => router.push('/home')} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 0 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
-                  <span>1 ТИП ПОЗОВУ</span>
+                  <span>1 {getProgressName(1)}</span>
                   {progressIndex >= 1 && <span>✓</span>}
                 </button>
                 <button onClick={() => setProgressIndex(1)} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 1 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
-                  <span>2 Персональні дані</span>
+                  <span>2 {getProgressName(2)}</span>
                   {progressIndex >= 2 && <span>✓</span>}
                 </button>
                 <button onClick={() => setProgressIndex(2)} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 2 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
-                  <span>3 Деталі справи</span>
+                  <span>3 {getProgressName(3)}</span>
                   {progressIndex >= 3 && <span>✓</span>}
                 </button>
                 <button className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 3 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
-                  <span>4 Онлайн-оплата</span>
+                  <span>4 {getProgressName(4)}</span>
                   {progressIndex >= 4 && <span>✓</span>}
                 </button>
                 <button className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 4 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
-                  <span>5 Готовий позов</span>
+                  <span>5 {getProgressName(5)}</span>
                 </button>
               </nav>
+
+              <button className='block md:hidden p-2 text-left text-mainBlue border border-mainBlue'>{progressIndex+1} {getProgressName(progressIndex+1)}</button>
               <main className="flex-1">
                 {progressIndex === 1 && 
                   <PersonalDataForm 

@@ -61,7 +61,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className='mt-8 flex justify-between space-x-4'>
-                    <div className='flex flex-row gap-4'>
+                    <div className='flex flex-row flex-wrap gap-4'>
                         <LiqPayIcon />
                         <VisaIcon />
                         <IdCheckIcon />

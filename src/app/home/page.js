@@ -27,6 +27,7 @@ const Home = () => {
             setDocumentData(docs);
         } catch (error) {
             console.error('Error fetching documents:', error);
+            setIsLoading(false);
         }
     };
 

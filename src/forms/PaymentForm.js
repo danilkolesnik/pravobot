@@ -8,10 +8,10 @@ const PaymentForm = ({ progressIndex, handleSetIndex }) => {
     
     return (
         <div className='flex flex-col gap-16'>
-            <div className='flex flex-row gap-6 mt-8'>
-                <div className='w-4/6 mr-6 text-gray-700'>
+            <div className='flex flex-col md:flex-row gap-6 mt-8'>
+                <div className='w-full md:w-4/6 mr-6 text-gray-700'>
                     <h1 className='text-2xl'>{'Ваш позов на {Розлучення} готовий!'}</h1>
-                    <p className='mt-6 text-m w-4/6'>Щоб отримати доступ до документу та інструкцій щодо подальших дій, натисніть кнопку «Оплатити».</p>
+                    <p className='mt-6 text-m w-full md:w-4/6'>Щоб отримати доступ до документу та інструкцій щодо подальших дій, натисніть кнопку «Оплатити».</p>
                     <div className='mt-6 flex flex-col gap-5'>
                         <div className='flex flex-row justify-between'>
                             <div className='flex flex-row gap-2 items-center'>
@@ -35,7 +35,7 @@ const PaymentForm = ({ progressIndex, handleSetIndex }) => {
                         </div>
                     </div>
                 </div>
-                <div className='w-2/6 bg-mainBlue p-3 rounded'>
+                <div className='w-full md:w-2/6 bg-mainBlue p-3 rounded'>
                     <h1 className='text-l font-bold'>Оплата послуг:</h1>
                     <div className='mt-4 flex flex-row justify-between'>
                         <p>Позов на розлучення</p>

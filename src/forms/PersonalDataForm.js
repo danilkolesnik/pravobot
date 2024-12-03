@@ -34,8 +34,8 @@ const PersonalDataForm = ({
     };
 
     return (
-          <div className='flex flex-row gap-8 mt-8'>
-            <nav className='w-3/5 flex flex-col gap-2 items-left'>
+          <div className='flex flex-col md:flex-row gap-8 mt-8'>
+            <nav className='w-full md:w-3/5 flex flex-col gap-2 items-left'>
                 <button onClick={() => setPerson('COMPLAINANT')} className={`p-2 text-left ${person === 'COMPLAINANT' ? 'bg-mainBlue' : 'text-gray-500 border border-gray-400'}`}>2.1 ДАННI ПОЗИВАЧА</button>
                 <button onClick={() => setPerson('DEFENDANT')} className={`p-2 text-left ${person === 'DEFENDANT' ? 'bg-mainBlue' : 'text-gray-500 border border-gray-400'}`}>2.2 ДАННI ВIДПОВIДАЧА</button>
             </nav>
@@ -152,8 +152,8 @@ const PersonalDataForm = ({
                   className="grow w-1/5 border p-2 rounded"
                 />
                 <input
-                  value={selectedAnswers[`[${person}_REGISTRATION_FLAT_NUMBER]`] || ''}
-                  onChange={(e) => handleDataChange(`[${person}_REGISTRATION_FLAT_NUMBER]`, e.target.value)}
+                  value={selectedAnswers[`[${person}_REGISTRATION_FLAT]`] || ''}
+                  onChange={(e) => handleDataChange(`[${person}_REGISTRATION_FLAT]`, e.target.value)}
                   type="text"
                   placeholder="Квартира"
                   className="grow w-1/5 border p-2 rounded"
@@ -231,7 +231,10 @@ const PersonalDataForm = ({
                   className="w-full border p-2 rounded"
                 />
               </div>
-              <button type="button" onClick={handleNextStep} className="w-full mt-6 bg-mainBlue text-white px-4 py-2 rounded">
+              <button type="button" onClick={() => {
+                  window.scrollTo(0, 0);
+                  handleNextStep();
+                }} className="w-full mt-6 bg-mainBlue text-white px-4 py-2 rounded">
                 Далі
               </button>
             </form>

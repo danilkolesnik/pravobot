@@ -33,8 +33,8 @@ const DetailsForm = ({
     };
 
     return (
-        <div className="flex flex-row gap-8 mt-8">
-            <nav className="w-3/5 flex flex-col gap-2 items-left">
+        <div className="flex flex-col md:flex-row gap-8 mt-8">
+            <nav className="w-full md:w-3/5 flex flex-col gap-2 items-left">
                 <button className="p-2 text-left bg-mainBlue">2.1 ДАННI ПОЗИВАЧА</button>
                 <button className="p-2 text-left text-gray-500 border border-gray-400">2.2 ДАННI ВIДПОВIДАЧА</button>
             </nav>
@@ -88,7 +88,10 @@ const DetailsForm = ({
 
                 <button
                     type="button"
-                    onClick={handleNextStep}
+                    onClick={() => {
+                        window.scrollTo(0, 0);
+                        handleNextStep();
+                    }}
                     className="w-full mt-6 bg-mainBlue text-white px-4 py-2 rounded"
                 >
                     Далі
