@@ -108,14 +108,14 @@ const PersonalDataForm = ({
                   onChange={(e) => handleDataChange(`[${person}_PASSPORT_NUMBER]`, e.target.value)}
                   type="text"
                   placeholder="Номер Паспорту"
-                  className="border p-2 rounded"
+                  className="text-gray-900 border p-2 rounded"
                 />
                 <input
                   value={selectedAnswers[`[${person}_ID_NUMBER]`] || ''}
                   onChange={(e) => handleDataChange(`[${person}_ID_NUMBER]`, e.target.value)}
                   type="text"
                   placeholder="Ідентифікаційний номер"
-                  className="border p-2 rounded"
+                  className="text-gray-900 border p-2 rounded"
                 />
               </div>
               {/* Адреса Прописки */}
@@ -128,35 +128,35 @@ const PersonalDataForm = ({
                   onChange={(e) => handleDataChange(`[${person}_REGISTRATION_INDEX]`, e.target.value)}
                   type="text"
                   placeholder="Індекс"
-                  className="grow-0 border p-2 rounded"
+                  className="text-gray-900 grow-0 border p-2 rounded"
                 />
                 <input
                   value={selectedAnswers[`[${person}_REGISTRATION_CITY]`] || ''}
                   onChange={(e) => handleDataChange(`[${person}_REGISTRATION_CITY]`, e.target.value)}
                   type="text"
                   placeholder="Місто"
-                  className="grow border p-2 rounded"
+                  className="text-gray-900 grow border p-2 rounded"
                 />
                 <input
                   value={selectedAnswers[`[${person}_REGISTRATION_STREET]`] || ''}
                   onChange={(e) => handleDataChange(`[${person}_REGISTRATION_STREET]`, e.target.value)}
                   type="text"
                   placeholder="Вулиця"
-                  className="w-1/2 border p-2 rounded"
+                  className="text-gray-900 w-1/2 border p-2 rounded"
                 />
                 <input
                   value={selectedAnswers[`[${person}_REGISTRATION_HOUSE]`] || ''}
                   onChange={(e) => handleDataChange(`[${person}_REGISTRATION_HOUSE]`, e.target.value)}
                   type="text"
                   placeholder="Будинок"
-                  className="grow w-1/5 border p-2 rounded"
+                  className="text-gray-900 grow w-1/5 border p-2 rounded"
                 />
                 <input
                   value={selectedAnswers[`[${person}_REGISTRATION_FLAT]`] || ''}
                   onChange={(e) => handleDataChange(`[${person}_REGISTRATION_FLAT]`, e.target.value)}
                   type="text"
                   placeholder="Квартира"
-                  className="grow w-1/5 border p-2 rounded"
+                  className="text-gray-900 grow w-1/5 border p-2 rounded"
                 />
                 <div className="flex items-center">
                   <input 
@@ -172,42 +172,42 @@ const PersonalDataForm = ({
               {!isAddressMatch && (
                 <div className="mt-6 flex flex-wrap gap-3">
                   <label className="w-full text-l text-black">
-                    <span style={{ color: 'red' }}>* </span>Адреса проживання {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}
+                    <span style={{ color: 'red' }}>* </span>Адреса фактичного проживання {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}
                   </label>
                   <input
                     value={selectedAnswers[`[${person}_ACTUAL_INDEX]`] || ''}
                     onChange={(e) => handleDataChange(`[${person}_ACTUAL_INDEX]`, e.target.value)}
                     type="text"
                     placeholder="Індекс"
-                    className="grow-0 border p-2 rounded"
+                    className="text-gray-900 grow-0 border p-2 rounded"
                   />
                   <input
                     value={selectedAnswers[`[${person}_ACTUAL_CITY]`] || ''}
                     onChange={(e) => handleDataChange(`[${person}_ACTUAL_CITY]`, e.target.value)}
                     type="text"
                     placeholder="Місто"
-                    className="grow border p-2 rounded"
+                    className="text-gray-900 grow border p-2 rounded"
                   />
                   <input
                     value={selectedAnswers[`[${person}_ACTUAL_STREET]`] || ''}
                     onChange={(e) => handleDataChange(`[${person}_ACTUAL_STREET]`, e.target.value)}
                     type="text"
                     placeholder="Вулиця"
-                    className="w-1/2 border p-2 rounded"
+                    className="text-gray-900 w-1/2 border p-2 rounded"
                   />
                   <input
                     value={selectedAnswers[`[${person}_ACTUAL_HOUSE]`] || ''}
                     onChange={(e) => handleDataChange(`[${person}_ACTUAL_HOUSE]`, e.target.value)}
                     type="text"
                     placeholder="Будинок"
-                    className="grow w-1/5 border p-2 rounded"
+                    className="text-gray-900 grow w-1/5 border p-2 rounded"
                   />
                   <input
                     value={selectedAnswers[`[${person}_ACTUAL_FLAT]`] || ''}
                     onChange={(e) => handleDataChange(`[${person}_ACTUAL_FLAT]`, e.target.value)}
                     type="text"
                     placeholder="Квартира"
-                    className="grow w-1/5 border p-2 rounded"
+                    className="text-gray-900 grow w-1/5 border p-2 rounded"
                   />
                 </div>
               )}
@@ -221,14 +221,14 @@ const PersonalDataForm = ({
                   onChange={(e) => handleDataChange(`[${person}_PHONE_NUMBER]`, e.target.value)}
                   type="text"
                   placeholder="Номер телефону"
-                  className="w-full border p-2 rounded"
+                  className="text-gray-900 w-full border p-2 rounded"
                 />
                 <input
                   value={selectedAnswers[`[${person}_EMAIL]`] || ''}
                   onChange={(e) => handleDataChange(`[${person}_EMAIL]`, e.target.value)}
                   type="email"
                   placeholder="Електронна пошта"
-                  className="w-full border p-2 rounded"
+                  className="text-gray-900 w-full border p-2 rounded"
                 />
               </div>
               <button type="button" onClick={() => {
