@@ -18,6 +18,8 @@ const CreateDocument = () => {
   const [documentData, setDocumentData] = useState(null);
   const [updatedSample, setUpdatedSample] = useState(null);
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  
+  useEffect(() => { console.log(selectedAnswers) },[selectedAnswers]);
 
   const getDocuments = async (name) => {
     try {
@@ -29,6 +31,7 @@ const CreateDocument = () => {
       const matchingDocument = docs.find(document => document.Url === name);
 
       if (matchingDocument) {
+        // console.log('OUR DOC:', matchingDocument);
         setDocumentData(matchingDocument);
       } else {
         console.log("No matching document found for URL:", url);
