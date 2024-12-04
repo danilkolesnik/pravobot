@@ -51,3 +51,7 @@ body {
 #payment_window::-webkit-scrollbar-button {
   display: none;
 }
+
+#document_preview {
+  font-family: 'Times New Roman', Times, serif, var(--font-anonymous-pro);
+}

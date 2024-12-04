@@ -4,6 +4,9 @@ import { Loader } from '@component/ui/loader';
 
 const DocumentPreview = ({ sample }) => {
 
+    console.log(sample);
+    console.log(sample.length);
+    
     const [isLoading, setIsLoading] = useState(true);
     const [finalSample, setFinalSample] = useState(null);
 
