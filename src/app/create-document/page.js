@@ -68,13 +68,13 @@ const CreateDocument = () => {
     <div className="min-h-screen flex flex-col items-center bg-white">
       <Suspense fallback={<Loader />}>
         {isLoading ? (
-          <Loader />
+          <Loader /> 
         ) : documentData ? (
           <>
             <Header title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />
             <div className="flex flex-col min-h-screen bg-white w-4/5 md:w-3/5 mt-8 mx-auto">
               <nav className="h-12 hidden md:flex flex-row gap-3">
-                <button onClick={() => router.push('/home')} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 0 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
+                <button onClick={() => router.push('/')} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 0 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
                   <span>1 {getProgressName(1)}</span>
                   {progressIndex >= 1 && <span>✓</span>}
                 </button>

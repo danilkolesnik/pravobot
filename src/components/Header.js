@@ -6,7 +6,7 @@ const Header = ({ title }) => {
     const router = useRouter();
 
     const handleReturn = () => {
-        router.push('/home');
+        router.push('/');
     };
 
     return (
