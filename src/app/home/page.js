@@ -8,6 +8,7 @@ import Footer from '@component/components/Footer';
 import logo from '@component/assets/images/logo.png';
 
 const Home = () => {
+    
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(true);
@@ -23,10 +24,10 @@ const Home = () => {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
             const { docs } = await res.json();
-            setIsLoading(false);
             setDocumentData(docs);
         } catch (error) {
             console.error('Error fetching documents:', error);
+        } finally {
             setIsLoading(false);
         }
     };
@@ -36,7 +37,7 @@ const Home = () => {
     },[]);
     
     const handleChange = (event) => {
-        const selectedIndex = event.target.value; // индекс выбранного option
+        const selectedIndex = event.target.value; 
         console.log('Selected index:', selectedIndex);
         setSelectedType(selectedIndex);
     };
