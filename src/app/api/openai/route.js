@@ -17,7 +17,7 @@ export async function POST(req) {
     `;
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: 'You are a text helper' },
         { role: 'user', content: prompt }
