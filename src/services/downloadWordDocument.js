@@ -1,5 +1,5 @@
 
-const downloadDocument = () => {
+const downloadWordDocument = () => {
     // Получаем содержимое элемента document_preview
     const element = document.getElementById('document_preview');
     if (!element) {
@@ -18,7 +18,6 @@ const downloadDocument = () => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Document</title>
             <style>
-                /* Добавьте любые нужные стили */
                 body {
                     font-family: Arial, sans-serif;
                     color: #333;
@@ -47,4 +46,4 @@ const downloadDocument = () => {
     document.body.removeChild(link);
 }
 
-export default downloadDocument;
+export default downloadWordDocument;

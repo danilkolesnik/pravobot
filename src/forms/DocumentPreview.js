@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { renderDocument } from "@component/services/renderDocument";
 import { Loader } from '@component/ui/loader';
-import downloadDocument from "@component/services/downloadDocument";
+import downloadWordDocument from "@component/services/downloadWordDocument";
+import downloadPDFDocument from "@component/services/downloadPDFDocument";
 
 const DocumentPreview = ({ sample }) => {
     
     const [isLoading, setIsLoading] = useState(false);
     const [finalSample, setFinalSample] = useState(null);
+    const [documentFormat, setDocumentFormat] = useState('Word');
+
+    const handleFormatChange = (event) => {
+        setDocumentFormat(event.target.value);
+    };
 
     const regenerateSample = async () => {
         setIsLoading(true);
@@ -47,13 +53,21 @@ const DocumentPreview = ({ sample }) => {
                     <div className="text-center">
                         <h1 className="text-3xl text-gray-800">Дякуємо!</h1>
                         <p className="text-gray-800 mt-2">Ваш позов на розлучення готовий</p>
-                        <button onClick={downloadDocument} className="text-white mt-2 p-2 bg-mainBlue rounded">Завантажити документ</button>
+                        {/* <select
+                            className="flex text-black flex-col w-full py-2 rounded border border-mainBlue"
+                            value={documentFormat}
+                            onChange={handleFormatChange} // Обработчик изменения
+                        >
+                            <option value="Word">Word</option>
+                            <option value="PDF">PDF</option>
+                        </select> */}
+                        <button onClick={documentFormat === 'Word' ? downloadWordDocument : downloadPDFDocument} className="text-white mt-2 p-2 bg-mainBlue rounded">Завантажити документ</button>
                     </div>
                     <div
                         id='document_preview'
                         className="w-full border border-black p-4 text-gray-900"
                         // dangerouslySetInnerHTML={{ __html: renderDocument(finalSample) }}
-                        dangerouslySetInnerHTML={{ __html: renderDocument(sample) }}
+                        dangerouslySetInnerHTML={{ __html: renderDocument(finalSample) }}
                     ></div>
                 </>
             )} 
