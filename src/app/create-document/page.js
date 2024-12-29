@@ -72,8 +72,11 @@ const CreateDocument = () => {
         ) : documentData ? (
           <>
             <Header title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />
-            <div className="flex flex-col min-h-screen bg-white w-4/5 md:w-3/5 mt-8 mx-auto">
-              <nav className="h-12 hidden md:flex flex-row gap-3">
+            <div id='progress_bar' className={`h-1 self-start bg-mainBlue rounded-xl`} style={{ width: `${(progressIndex / 5) * 100}%` }}>
+
+            </div>
+            <div className="flex flex-col min-h-screen bg-white w-4/5 mt-8 mx-auto">
+              {/* <nav className="h-12 hidden md:flex flex-row gap-3">
                 <button onClick={() => router.push('/')} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 0 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
                   <span>1 {getProgressName(1)}</span>
                   {progressIndex >= 1 && <span>✓</span>}
@@ -93,7 +96,7 @@ const CreateDocument = () => {
                 <button className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 4 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
                   <span>5 {getProgressName(5)}</span>
                 </button>
-              </nav>
+              </nav> */}
 
               <button className='block md:hidden p-2 text-left text-mainBlue border border-mainBlue'>{progressIndex+1} {getProgressName(progressIndex+1)}</button>
               <main className="flex-1">

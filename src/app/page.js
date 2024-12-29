@@ -52,7 +52,7 @@ const Home = () => {
             {isLoading ? <Loader /> : 
                 (<>
                     <Header />
-                    <main className='flex flex-col flex-grow items-center mt-28 w-1/5'>
+                    <main className='flex flex-col flex-grow items-center mt-28 w-1/3'>
                         <div className='flex flex-col items-center'>
                             <Image
                                     src={logo}
@@ -60,19 +60,19 @@ const Home = () => {
                                     width={70} 
                                     height={90}
                                 />
-                            <h1 className='text-2xl text-gray-600 font-bold mb-2 text-center'>
+                            <h1 className='text-4xl text-gray-700 font-medium mb-2 mt-5 text-center'>
                                 Автоматична Система Генерування Позовів
                             </h1>
                             <p className='text-gray-600 mb-8 text-center'>
                                 Оберіть тип позову, введіть дані та отримайте готовий позов до суду:
                             </p>
-                            <div className='flex flex-col items-left w-full'>
-                                <label htmlFor='lawsuit-type' className='mb-2 text-gray-600'>
+                            <div className='flex flex-col items-left w-2/3'>
+                                <label htmlFor='lawsuit-type' className='mb-2 text-center text-gray-600 font-bold'>
                                     Тип позову
                                 </label>
                                 <select
                                     id="lawsuit-type"
-                                    className="text-gray-600 border border-gray-300 rounded px-4 py-2"
+                                    className="text-gray-600 border border-gray-300 rounded-xl px-4 py-2"
                                     value={selectedType}
                                     onChange={handleChange}
                                 >
@@ -85,7 +85,7 @@ const Home = () => {
                                         ))}
                                 </select>
 
-                                {isTypePicked && <button onClick={handleContinue} className='mt-6 bg-mainBlue h-10 rounded'>Далi</button>}
+                                {isTypePicked && <button onClick={handleContinue} className='mt-6 bg-mainBlue h-10 rounded-xl'>Далi</button>}
                             </div>
                         </div>
                     </main>

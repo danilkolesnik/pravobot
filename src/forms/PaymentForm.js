@@ -8,10 +8,10 @@ const PaymentForm = ({ progressIndex, handleSetIndex }) => {
     
     return (
         <div className='flex flex-col gap-16'>
-            <div className='flex flex-col md:flex-row gap-6 mt-8'>
-                <div className='w-full md:w-4/6 mr-6 text-gray-700'>
-                    <h1 className='text-2xl'>{'Ваш позов на {Розлучення} готовий!'}</h1>
-                    <p className='mt-6 text-m w-full md:w-4/6'>Щоб отримати доступ до документу та інструкцій щодо подальших дій, натисніть кнопку «Оплатити».</p>
+            <div className='flex flex-col items-center gap-6 mt-8'>
+                <div className='w-full md:w-4/5 lg:w-2/5 mr-6 text-gray-700'>
+                    <h1 className='text-center text-3xl text-gray-700 font-medium'>Ваша позовна заява готова!</h1>
+                    <p className='text-center mt-6 text-m'>Щоб отримати доступ до документу та інструкцій щодо подальших дій, оплатіть зазначену суму послуги.</p>
                     <div className='mt-6 flex flex-col gap-5'>
                         <div className='flex flex-row justify-between'>
                             <div className='flex flex-row gap-2 items-center'>

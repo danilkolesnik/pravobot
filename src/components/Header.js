@@ -51,8 +51,8 @@ const Header = ({ title }) => {
     return (
         <header className='w-full'>
             <div className='flex flex-row justify-between items-center mx-6 py-6 border-b border-[#CFC7C7]'>
-                <h1 onClick={handleReturn} className='text-2xl text-blue-500 cursor-pointer select-none'>Pravobot</h1>
-                {title && <h1 className='hidden md:block text-3xl text-blue-500 font-bold'>{title}</h1>}
+                <h1 onClick={handleReturn} className='text-2xl text-blue-500 text-bold font-bold cursor-pointer select-none'>Pravobot</h1>
+                {title && <h1 className='hidden md:block text-3xl text-blue-500 font-medium'>{title}</h1>}
                 <button onClick={toggleSidebar}>
                     <MenuIcon className='cursor-pointer' />
                 </button>

@@ -5,7 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #ffffff;
-  --font-anonymous-pro: 'Anonymous Pro', monospace;
+  /* --font-anonymous-pro: 'Anonymous Pro', monospace; */
 }
 
 @media (prefers-color-scheme: dark) {
