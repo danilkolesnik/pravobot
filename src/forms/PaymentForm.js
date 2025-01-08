@@ -21,7 +21,7 @@ const PaymentForm = ({ progressIndex, handleSetIndex }) => {
                                 />
                                 <label>Позов на розлучення</label>
                             </div>
-                            <h2 className='text-l'>199 ₴</h2>
+                            <h2 className='text-l'><b>199 ₴</b></h2>
                         </div>
                         <div className='flex flex-row justify-between'>
                             <div className='flex flex-row gap-2 items-center'>
@@ -31,29 +31,25 @@ const PaymentForm = ({ progressIndex, handleSetIndex }) => {
                                 />
                                 <label>Супровід справи адвокатом без вашої участі*</label>
                             </div>
-                            <h2 className='text-l'>1000 ₴</h2>
+                            <h2 className='text-l'><b>1000 ₴</b></h2>
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                            <h1 className='text-xl'><b>До сплати</b></h1>
+                            <h1 className='text-xl'><b>1999 ₴</b></h1>
                         </div>
                     </div>
                 </div>
-                <div className='w-full md:w-2/6 bg-mainBlue p-3 rounded'>
-                    <h1 className='text-l font-bold'>Оплата послуг:</h1>
-                    <div className='mt-4 flex flex-row justify-between'>
-                        <p>Позов на розлучення</p>
-                        <p>199 ₴</p>
+                <div className='w-full md:w-4/5 lg:w-2/5 border-2 border-mainBlue p-3 rounded-xl'>
+                    <div id='payment_window' className='border border-white max-h-44 overflow-y-scroll'>
+                        <p className='p-1 text-gray-800'>Якщо якісь із вищезгаданих обставин (наявність свідоцтва про шлюб, нерухомого майна тощо), необхідно додати до позову докази, що підтверджують їх (документи, довідки, витяги з реєстру нерухомого майна, свідоцтво про реєстрацію автомобіля тощо Якщо якісь із вищезгаданих обставин (наявність свідоцтва про шлюб, нерухомого майна тощо), необхідно додати до позову докази, що підтверджують їх (документи, довідки, витяги з реєстру нерухомого майна, свідоцтво про реєстрацію автомобіля тощо) .).) .).</p>
                     </div>
-                    <div id='payment_window' className='mt-4 border border-white max-h-44 overflow-y-scroll'>
-                        <p className='p-1'>Якщо якісь із вищезгаданих обставин (наявність свідоцтва про шлюб, нерухомого майна тощо), необхідно додати до позову докази, що підтверджують їх (документи, довідки, витяги з реєстру нерухомого майна, свідоцтво про реєстрацію автомобіля тощо) .).</p>
-                    </div>
-                    <div className='border border-t-0 border-white p-2 whitespace-nowrap overflow-hidden'>
-                        <input 
-                            type="checkbox" 
-                            className="mr-2" 
-                        />
-                        <label className='text-s'>Согласие на обработку персональных данных</label>
-                    </div>
-                    <button type="button" onClick={() => handleSetIndex(progressIndex + 1)} className="w-full mt-6 bg-white text-mainBlue px-4 py-2">
-                        Сплатити
-                    </button>
+                </div>
+                <div className='w-full md:w-4/5 lg:w-2/5 text-gray-800 border border-t-0 border-white whitespace-nowrap overflow-hidden'>
+                    <input 
+                        type="checkbox" 
+                        className="mr-2" 
+                    />
+                    <label className='text-s'>Согласие на обработку персональных данных</label>
                 </div>
             </div>
 

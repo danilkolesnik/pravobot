@@ -24,7 +24,7 @@ body {
 
 #payment_window {
   scrollbar-width: thin; /* Для Firefox */
-  scrollbar-color: white transparent; /* Цвет ползунка и фона */
+  scrollbar-color: gray transparent; /* Цвет ползунка и фона */
 }
 
 #payment_window::-webkit-scrollbar {
@@ -44,7 +44,7 @@ body {
 }
 
 #payment_window::-webkit-scrollbar-thumb:hover {
-  background: #e0e0e0; /* Цвет ползунка при наведении */
+  background: #494A50; /* Цвет ползунка при наведении */
 }
 
 /* Убираем стрелочки */

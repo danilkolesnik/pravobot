@@ -3,6 +3,7 @@ import MenuIcon from '@component/assets/icons/menuIcon';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { supabase } from '@component/supabase/supabaseClient';
+import CloseIcon from '@component/assets/icons/closeIcon';
 
 const Header = ({ title }) => {
     const router = useRouter();
@@ -58,8 +59,14 @@ const Header = ({ title }) => {
                 </button>
             </div>
             <div className={`fixed flex flex-col gap-5 right-0 top-0 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                <button className='text-black' onClick={() => setIsSidebarOpen(false)}>Закрыть</button>
-                <button className='text-black' onClick={() => setIsPopupOpen(true)}>Войти / Зарегистрироваться</button>
+                <div className='mx-5 flex flex-col gap-5 text-black'> 
+                    <div className='cursor-pointer mt-6 mx-5 flex justify-end' onClick={() => setIsSidebarOpen(false)} >
+                        <CloseIcon />
+                    </div>
+                    <p>Служба пiдтримки</p>
+                    <p>Контакти</p>
+                    <button className=' text-left text-black' onClick={() => setIsPopupOpen(true)}>Войти</button>
+                </div>
             </div>
 
             {isPopupOpen && (
