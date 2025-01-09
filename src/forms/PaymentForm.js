@@ -1,11 +1,44 @@
+'use client';
+import { useState } from "react";
 import IdCheckIcon from "@component/assets/icons/idCheckIcon";
 import LiqPayIcon from "@component/assets/icons/liqPayIcon";
 import McAfeeIcon from "@component/assets/icons/mcAfeeIcon";
 import NortonSecuredIcon from "@component/assets/icons/nortonSecuredIcon";
 import VisaIcon from "@component/assets/icons/visaIcon";
+import LiqPay from "liqpay";
 
 const PaymentForm = ({ progressIndex, handleSetIndex }) => {
     
+    const [isProcessing, setIsProcessing] = useState(false);
+    const liqpay = new LiqPay(process.env.LIQPAY_PUBLIC_KEY, process.env.LIQPAY_PRIVATE_KEY);
+
+    const handlePayment = () => {
+        setIsProcessing(true);
+
+        const test = process.env.LIQPAY_PUBLIC_KEY;
+        console.log(test);
+
+        const params = {
+            action: "pay",
+            amount: 100,
+            currency: "UAH",
+            description: "Оплата за услуги",
+            order_id: "order_123456",
+            version: 3, // Версия API LiqPay
+            sandbox: 1, // Включение тестового режима (0 - в боевом, 1 - в тестовом)
+        };
+
+        liqpay.api("request", params, function (data) {
+            const result = JSON.parse(data);
+            if (result.status === "ok") {
+                alert("Оплата прошла успешно!");
+            } else {
+                alert("Ошибка оплаты: " + result.status);
+            }
+            setIsProcessing(false);
+        });
+    };
+
     return (
         <div className='flex flex-col gap-16'>
             <div className='flex flex-col items-center gap-6 mt-8'>
@@ -51,6 +84,12 @@ const PaymentForm = ({ progressIndex, handleSetIndex }) => {
                     />
                     <label className='text-s'>Согласие на обработку персональных данных</label>
                 </div>
+                <button 
+                    className='w-full md:w-4/5 lg:w-2/5 py-2 rounded-xl bg-mainBlue text-white'
+                    onClick={handlePayment}
+                >
+                    Оплатити
+                </button>
             </div>
 
             <div className='w-full flex flex-row justify-between opacity-50'>
