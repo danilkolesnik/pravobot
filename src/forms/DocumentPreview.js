@@ -4,8 +4,10 @@ import { Loader } from '@component/ui/loader';
 import downloadWordDocument from "@component/services/downloadWordDocument";
 import downloadPDFDocument from "@component/services/downloadPDFDocument";
 
-const DocumentPreview = ({ sample }) => {
+const DocumentPreview = () => {
     
+    const sample = JSON.parse(localStorage.getItem('updatedSample'));
+    console.log(sample);
     const [isLoading, setIsLoading] = useState(false);
     const [finalSample, setFinalSample] = useState(null);
     const [documentFormat, setDocumentFormat] = useState('Word');

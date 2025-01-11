@@ -1,5 +1,5 @@
 'use client';
-import { useState } from "react"; 
+import { useState, useEffect } from "react"; 
 import IdCheckIcon from "@component/assets/icons/idCheckIcon";
 import LiqPayIcon from "@component/assets/icons/liqPayIcon";
 import McAfeeIcon from "@component/assets/icons/mcAfeeIcon";
@@ -34,7 +34,7 @@ const payment = (price) => {
         version: 3,
         sandbox: 1,
         public_key: liqPayPublicKey,
-        result_url: `${window.location.origin}/payment-success`,
+        result_url: `${window.location.origin}/payment-success?status=success`,
     };
 
     const { data, signature } = generateLiqPayData(params);
@@ -53,7 +53,6 @@ const payment = (price) => {
 };
 
 const PaymentForm = ({ documentData, progressIndex, handleSetIndex }) => {
-
     const [totalPrice, setTotalPrice] = useState(Number(documentData.ScenarioPrice) || 0);
 
     const handleServiceChange = (service, isChecked) => {
@@ -63,6 +62,13 @@ const PaymentForm = ({ documentData, progressIndex, handleSetIndex }) => {
             isChecked ? prevTotal + servicePrice : prevTotal - servicePrice
         );
     };
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+        if (queryParams.get('status') === 'success') {
+            handleSetIndex(progressIndex + 1);
+        }
+    }, [progressIndex, handleSetIndex]);
 
     return (
         <div className='flex flex-col gap-16'>
@@ -102,7 +108,7 @@ const PaymentForm = ({ documentData, progressIndex, handleSetIndex }) => {
                 <div className='w-full md:w-4/5 lg:w-2/5 border-2 border-mainBlue p-3 rounded-xl'>
                     <p className='text-gray-800'>Детали условий...</p>
                 </div>
-                <div className='w-full md:w-4/5 lg:w-2/5'>
+                <div className='w-full md:w-4/5 lg:w-2/5 text-gray-800'>
                     <input type="checkbox" className="mr-2" />
                     <label>Согласие на обработку персональных данных</label>
                 </div>
