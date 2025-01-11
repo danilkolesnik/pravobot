@@ -119,7 +119,7 @@ const CreateDocument = () => {
                     updatedSample={updatedSample} 
                     setUpdatedSample={setUpdatedSample} 
                   />}
-                {progressIndex === 3 && <PaymentForm progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
+                {progressIndex === 3 && <PaymentForm documentData={documentData} progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
                 {progressIndex === 4 && <DocumentPreview sample={updatedSample} />}
               </main>
             </div>

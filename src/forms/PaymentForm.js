@@ -1,3 +1,5 @@
+'use client';
+import { useState } from "react"; 
 import IdCheckIcon from "@component/assets/icons/idCheckIcon";
 import LiqPayIcon from "@component/assets/icons/liqPayIcon";
 import McAfeeIcon from "@component/assets/icons/mcAfeeIcon";
@@ -22,16 +24,17 @@ const generateLiqPayData = (params) => {
     return { data, signature };
 };
 
-const payment = () => {
+const payment = (price) => {
     const params = {
         action: "pay",
-        amount: 1999,
+        amount: price,
         currency: "UAH",
         description: "Оплата за юридические услуги",
         order_id: `order_${Date.now()}`,
         version: 3,
         sandbox: 1,
-        public_key: liqPayPublicKey
+        public_key: liqPayPublicKey,
+        result_url: `${window.location.origin}/payment-success`,
     };
 
     const { data, signature } = generateLiqPayData(params);
@@ -49,7 +52,18 @@ const payment = () => {
     form.submit();
 };
 
-const PaymentForm = ({ progressIndex, handleSetIndex }) => {
+const PaymentForm = ({ documentData, progressIndex, handleSetIndex }) => {
+
+    const [totalPrice, setTotalPrice] = useState(Number(documentData.ScenarioPrice) || 0);
+
+    const handleServiceChange = (service, isChecked) => {
+        const servicePrice = Number(service.ServicePrice);
+
+        setTotalPrice((prevTotal) =>
+            isChecked ? prevTotal + servicePrice : prevTotal - servicePrice
+        );
+    };
+
     return (
         <div className='flex flex-col gap-16'>
             <div className='flex flex-col items-center gap-6 mt-8'>
@@ -57,17 +71,31 @@ const PaymentForm = ({ progressIndex, handleSetIndex }) => {
                     <h1 className='text-center text-3xl font-medium'>Ваша позовна заява готова!</h1>
                     <p className='text-center mt-6'>Щоб отримати доступ до документу, оплатіть зазначену суму.</p>
                     <div className='mt-6 flex flex-col gap-5'>
-                        <div className='flex flex-row justify-between'>
-                            <label>Позов на розлучення</label>
-                            <h2><b>199 ₴</b></h2>
-                        </div>
-                        <div className='flex flex-row justify-between'>
-                            <label>Супровід справи адвокатом</label>
-                            <h2><b>1000 ₴</b></h2>
-                        </div>
+                        {documentData && (
+                            <div className='flex flex-row justify-between'>
+                                <label>{documentData.ScenarioTitle}</label>
+                                <h2><b>{documentData.ScenarioPrice} ₴</b></h2>
+                            </div>
+                        )}
+                        {documentData &&
+                            documentData.servicesSlider.map((service) => (
+                                <div key={service.id} className='flex flex-row justify-between'>
+                                    <div className='flex flex-row gap-2'>
+                                        <input
+                                            type='checkbox'
+                                            id={`service-${service.id}`}
+                                            onChange={(e) =>
+                                                handleServiceChange(service, e.target.checked)
+                                            }
+                                        />
+                                        <label htmlFor={`service-${service.id}`}>{service.ServiceName}</label>
+                                    </div>
+                                    <h2><b>{service.ServicePrice} ₴</b></h2>
+                                </div>
+                            ))}
                         <div className='flex flex-row justify-between'>
                             <h1 className='text-xl'><b>До сплати</b></h1>
-                            <h1 className='text-xl'><b>1999 ₴</b></h1>
+                            <h1 className='text-xl'><b>{totalPrice} ₴</b></h1>
                         </div>
                     </div>
                 </div>
@@ -78,9 +106,9 @@ const PaymentForm = ({ progressIndex, handleSetIndex }) => {
                     <input type="checkbox" className="mr-2" />
                     <label>Согласие на обработку персональных данных</label>
                 </div>
-                <button 
+                <button
                     className='w-full md:w-4/5 lg:w-2/5 py-2 rounded-xl bg-mainBlue text-white'
-                    onClick={payment}
+                    onClick={() => payment(totalPrice)}
                 >
                     Оплатити
                 </button>
