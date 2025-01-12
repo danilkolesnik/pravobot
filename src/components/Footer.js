@@ -1,77 +1,30 @@
-import LiqPayIcon from "@component/assets/icons/liqPayIcon";
-import VisaIcon from "@component/assets/icons/visaIcon";
-import IdCheckIcon from "@component/assets/icons/idCheckIcon";
-import NortonSecuredIcon from "@component/assets/icons/nortonSecuredIcon";
-import McAfeeIcon from "@component/assets/icons/mcAfeeIcon";
+import Image from "next/image";
+import logo from '@component/assets/images/logo.png';
+import PhoneIcon from "@component/assets/icons/phoneIcon";
+import MailIcon from "@component/assets/icons/mailIcon";
 
 const Footer = () => {
     return (
-        <footer className="w-full p-6">
-            <div className='border border-blue-500 p-6'>
-                <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-                    <div>
-                    <h2 className="font-bold mb-2 text-black">Юридична інформація:</h2>
-                    <ul className="space-y-1">
-                        <li>
-                        <a href="#" className="text-blue-500">
-                            Політика конфіденційності
-                        </a>
-                        </li>
-                        <li>
-                        <a href="#" className="text-blue-500">
-                            Публічна оферта
-                        </a>
-                        </li>
-                        <li>
-                        <a href="#" className="text-blue-500">
-                            Угода користувача
-                        </a>
-                        </li>
-                    </ul>
-                    </div>
-                    <div>
-                    <h2 className="font-bold mb-2 text-black">Контактна інформація:</h2>
-                    <ul className="space-y-1">
-                        <li>
-                        <a href="mailto:example@example.com" className="text-blue-500">
-                            example@example.com
-                        </a>
-                        </li>
-                        <li>
-                        <a href="tel:+123456789" className="text-blue-500">
-                            +123456789
-                        </a>
-                        </li>
-                    </ul>
-                    </div>
-                    <div>
-                    <h2 className="font-bold mb-2 text-black">Додаткові посилання:</h2>
-                    <ul className="space-y-1">
-                        <li>
-                        <a href="#" className="text-blue-500">
-                            info
-                        </a>
-                        </li>
-                        <li>
-                        <a href="tel:+123456789" className="text-blue-500">
-                            +123456789
-                        </a>
-                        </li>
-                    </ul>
-                    </div>
+        <footer className="w-full bg-slate-100">
+            <div className='mx-7 flex flex-col'>
+                <div className='flex flex-row items-center pb-5 pt-4 gap-3'>
+                    <Image
+                        src={logo}
+                        alt='Scales of Justice'
+                        width={30} 
+                        height={30}
+                    />
+                    <h1 className='text-xl text-blue-500 font-medium cursor-pointer select-none'>Pravobot</h1>
                 </div>
-                <div className='mt-8 flex justify-between space-x-4'>
-                    <div className='flex flex-row flex-wrap gap-4'>
-                        <LiqPayIcon />
-                        <VisaIcon />
-                        <IdCheckIcon />
-                        <NortonSecuredIcon />
-                        <McAfeeIcon />
+                <div className='flex flex-row items-center align-center justify-between pb-5 border-b'>
+                    <div className='flex flex-row gap-5 text-gray-800 flex-wrap'>
+                        <h3 className='font-bold'>Служба пiдтримки:</h3>
+                        <span className='flex flex-row items-center gap-2'><PhoneIcon />+380677660708</span>
+                        <span className='flex flex-row items-center gap-2'><MailIcon />help@pravobot.com</span>
                     </div>
-                    <a href="https://onebig.pro" className="text-blue-500">
-                        onebig.pro
-                    </a>
+                    {/* <div className='bg-black'>icons</div> */}
                 </div>
+                <p className='flex items-center text-gray-800 py-3'>© {new Date().getFullYear()} Pravobot. Усі права захищено.</p>
             </div>
         </footer>
     );

@@ -6,8 +6,8 @@ import downloadPDFDocument from "@component/services/downloadPDFDocument";
 
 const DocumentPreview = () => {
     
-    const sample = JSON.parse(localStorage.getItem('updatedSample'));
-    console.log(sample);
+    const [sample] = useState(() => JSON.parse(localStorage.getItem('updatedSample')));
+    
     const [isLoading, setIsLoading] = useState(false);
     const [finalSample, setFinalSample] = useState(null);
     const [documentFormat, setDocumentFormat] = useState('Word');

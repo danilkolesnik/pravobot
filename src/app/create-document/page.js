@@ -7,7 +7,6 @@ import Footer from "@component/components/Footer";
 import PersonalDataForm from "@component/forms/PersonalDataForm";
 import DetailsForm from "@component/forms/DetailsForm";
 import PaymentForm from "@component/forms/PaymentForm";
-import DocumentPreview from "@component/forms/DocumentPreview";
 
 const CreateDocument = () => {
 
@@ -73,7 +72,7 @@ const CreateDocument = () => {
         ) : documentData ? (
           <>
             <Header title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />
-            <div id='progress_bar' className={`h-1 self-start bg-mainBlue rounded-xl`} style={{ width: `${(progressIndex / 5) * 100}%` }}>
+            <div id='progress_bar' className={`h-1 self-start bg-mainBlue rounded-xl`} style={{ width: `${(progressIndex / 4) * 100}%` }}>
 
             </div>
             <div className="flex flex-col min-h-screen bg-white w-4/5 mt-8 mx-auto">
@@ -121,7 +120,6 @@ const CreateDocument = () => {
                     setUpdatedSample={setUpdatedSample} 
                   />}
                 {progressIndex === 3 && <PaymentForm documentData={documentData} progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
-                {progressIndex === 4 && <DocumentPreview sample={updatedSample} />}
               </main>
             </div>
             <Footer />
