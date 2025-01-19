@@ -11,13 +11,14 @@
   "dependencies": {
     "@next/bundle-analyzer": "^15.0.3",
     "@supabase/supabase-js": "^2.47.10",
-    "axios": "^1.7.8",
+    "axios": "^1.7.9",
     "crypto": "^1.0.1",
     "html2canvas": "^1.4.1",
     "html2pdf": "^0.0.11",
     "jspdf": "^2.5.2",
     "liqpay": "^0.0.1",
     "next": "15.0.3",
+    "oauth-1.0a": "^2.2.6",
     "openai": "^4.75.0",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106"

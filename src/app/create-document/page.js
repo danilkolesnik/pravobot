@@ -75,7 +75,7 @@ const CreateDocument = () => {
             <div id='progress_bar' className={`h-1 self-start bg-mainBlue rounded-xl`} style={{ width: `${(progressIndex / 4) * 100}%` }}>
 
             </div>
-            <div className="flex flex-col min-h-screen bg-white w-4/5 mt-8 mx-auto">
+            <div className="flex flex-col min-h-screen bg-white w-4/5 mt-8 mb-8 mx-auto">
               {/* <nav className="h-12 hidden md:flex flex-row gap-3">
                 <button onClick={() => router.push('/')} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 0 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
                   <span>1 {getProgressName(1)}</span>

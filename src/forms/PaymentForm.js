@@ -34,7 +34,8 @@ const payment = (price) => {
         version: 3,
         sandbox: 1,
         public_key: liqPayPublicKey,
-        result_url: `${window.location.origin}/payment-success?status=success`,
+        // result_url: `${window.location.origin}/payment-success?status=success`,
+        result_url: `${window.location.origin}/preview`,
     };
 
     const { data, signature } = generateLiqPayData(params);

@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -43,11 +44,11 @@ const Home = () => {
     };
 
     const handleContinue = () => {
-        router.push(`/create-document?document=${documentData[selectedType].Url}`);
+        if (isTypePicked) router.push(`/create-document?document=${documentData[selectedType].Url}`);
     };
 
     return (
-        <div className='min-h-screen flex flex-col items-center bg-white'>
+        <div className='min-h-screen flex flex-col items-center'>
             
             {isLoading ? <Loader /> : 
                 (<>
@@ -57,26 +58,23 @@ const Home = () => {
                             <Image
                                     src={logo}
                                     alt='Scales of Justice'
-                                    width={70} 
-                                    height={90}
+                                    width={50} 
+                                    height={70}
                                 />
                             <h1 className='text-4xl text-gray-700 font-medium mb-2 mt-5 text-center'>
                                 Автоматична Система Генерування Позовів
                             </h1>
                             <p className='text-gray-600 mb-8 text-center'>
-                                Оберіть тип позову, введіть дані та отримайте готовий позов до суду:
+                            Оберіть тип позову, заповніть дані та отримайте готову заяву для подання до суду.
                             </p>
                             <div className='flex flex-col items-left w-2/3'>
-                                <label htmlFor='lawsuit-type' className='mb-2 text-center text-gray-600 font-bold'>
-                                    Тип позову
-                                </label>
                                 <select
                                     id="lawsuit-type"
-                                    className="text-gray-600 border border-gray-300 rounded-xl px-4 py-2"
+                                    className='text-gray-600 rounded-3xl px-4 py-3'
                                     value={selectedType}
                                     onChange={handleChange}
                                 >
-                                    {!isTypePicked && <option value="">Вибрати опцiю</option>}
+                                    {!isTypePicked && <option value="">Оберіть тип позову</option>}
                                     {documentData &&
                                         documentData.map((item, index) => (
                                             <option key={item.id} value={index}>
@@ -85,7 +83,7 @@ const Home = () => {
                                         ))}
                                 </select>
 
-                                {isTypePicked && <button onClick={handleContinue} className='mt-6 bg-mainBlue h-10 rounded-xl'>Далi</button>}
+                                <button onClick={handleContinue} className={`${!isTypePicked && 'opacity-20 cursor-default'} mt-3 bg-mainBlue h-12 rounded-3xl`}>Далi</button>
                             </div>
                         </div>
                     </main>

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { supabase } from '@component/supabase/supabaseClient';
 import CloseIcon from '@component/assets/icons/closeIcon';
+import Logo from '@component/assets/icons/logo';
 
 const Header = ({ title }) => {
     const router = useRouter();
@@ -50,9 +51,12 @@ const Header = ({ title }) => {
     };
 
     return (
-        <header className='w-full'>
-            <div className='flex flex-row justify-between items-center mx-6 py-6 border-b border-[#CFC7C7]'>
-                <h1 onClick={handleReturn} className='text-2xl text-blue-500 text-bold font-bold cursor-pointer select-none'>Pravobot</h1>
+        <header className='w-full flex flex-row justify-center'>
+            <div className='w-4/5 flex flex-row justify-between items-center mx-6 py-6 border-b border-[#CFC7C7]'>
+                <div className='flex flex-row gap-3 items-center'>
+                    <Logo />
+                    <h1 onClick={handleReturn} className='text-xl text-gray-800 text-bold font-bold cursor-pointer select-none'>Pravobot</h1>
+                </div>
                 {title && <h1 className='hidden md:block text-3xl text-blue-500 font-medium'>{title}</h1>}
                 <button onClick={toggleSidebar}>
                     <MenuIcon className='cursor-pointer' />
