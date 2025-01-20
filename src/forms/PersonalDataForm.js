@@ -122,7 +122,7 @@ const PersonalDataForm = ({
                 {/* Адреса Прописки */}
                 <div className="mt-6 flex flex-wrap gap-3">
                   <label className="w-full font-medium text-gray-800 text-l">
-                    <span style={{ color: 'red' }}>* </span>Адреса прописки {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}
+                    <span style={{ color: 'red' }}>* </span>Адреса реєстрації {person === 'COMPLAINANT' ? 'позивача' : 'вiдповiдача'}
                   </label>
                   <input
                     value={selectedAnswers[`[${person}_REGISTRATION_INDEX]`] || ''}

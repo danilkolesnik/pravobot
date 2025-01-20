@@ -57,7 +57,7 @@ const Header = ({ title }) => {
                     <Logo />
                     <h1 onClick={handleReturn} className='text-xl text-gray-800 text-bold font-bold cursor-pointer select-none'>Pravobot</h1>
                 </div>
-                {title && <h1 className='hidden md:block text-3xl text-blue-500 font-medium'>{title}</h1>}
+                {/* {title && <h1 className='hidden md:block text-3xl text-blue-500 font-medium'>{title}</h1>} */}
                 <button onClick={toggleSidebar}>
                     <MenuIcon className='cursor-pointer' />
                 </button>
