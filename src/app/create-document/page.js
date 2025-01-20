@@ -12,7 +12,7 @@ const CreateDocument = () => {
 
   const router = useRouter();
 
-  const [progressIndex, setProgressIndex] = useState(1);
+  const [progressIndex, setProgressIndex] = useState(3);
   const [isLoading, setIsLoading] = useState(true);
   const [documentData, setDocumentData] = useState(null);
   const [updatedSample, setUpdatedSample] = useState(null);
@@ -57,7 +57,24 @@ const CreateDocument = () => {
     return names[index-1] || "Невiдомий етап"; 
   };
 
-
+  const ProgressBar = ({ progressIndex }) => {
+    // Количество этапов
+    const totalSteps = 4;
+  
+    return (
+      <div className="flex gap-2">
+        {Array.from({ length: totalSteps }).map((_, index) => (
+          <div
+            key={index}
+            className={`h-1 flex-1 rounded-xl ${
+              index < progressIndex ? 'bg-mainBlue' : 'bg-gray-300'
+            }`}
+          ></div>
+        ))}
+      </div>
+    );
+  };
+  
   useEffect(() => {
     const queryString = window.location.search;
     const documentName = queryString.split('=')[1];
@@ -65,17 +82,16 @@ const CreateDocument = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-white">
+    <div className="min-h-screen flex flex-col items-center">
       <Suspense fallback={<Loader />}>
         {isLoading ? (
           <Loader /> 
         ) : documentData ? (
           <>
             <Header title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />
-            <div id='progress_bar' className={`h-1 self-start bg-mainBlue rounded-xl`} style={{ width: `${(progressIndex / 4) * 100}%` }}>
-
-            </div>
-            <div className="flex flex-col min-h-screen bg-white w-4/5 mt-8 mb-8 mx-auto">
+            <div id='progress_bar' className={`h-1 self-start bg-mainBlue rounded-xl`} style={{ width: `${(progressIndex / 4) * 100}%` }}></div>
+            {/* <ProgressBar /> */}
+            <div className="flex flex-col min-h-screen w-4/5 mt-8 mb-8 mx-auto">
               {/* <nav className="h-12 hidden md:flex flex-row gap-3">
                 <button onClick={() => router.push('/')} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 0 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
                   <span>1 {getProgressName(1)}</span>

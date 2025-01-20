@@ -33,8 +33,24 @@ const Home = () => {
         }
     };
 
+    const getPages = async () => {
+        try {
+            const res = await fetch(`/api/pages`);
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            const { docs } = await res.json();
+            localStorage.setItem('page_data', JSON.stringify(docs));
+        } catch (error) {
+            console.error('Error fetching documents:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
         getDocuments();
+        getPages();
     },[]);
     
     const handleChange = (event) => {

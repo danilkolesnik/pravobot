@@ -36,8 +36,8 @@ const PersonalDataForm = ({
     return (
           <div className='flex flex-col md:flex-row gap-8 mt-8'>
             <nav className='w-full md:w-2/5 flex flex-col gap-2 items-left'>
-                <button onClick={() => setPerson('COMPLAINANT')} className={`p-3 rounded-3xl text-xs tracking-wider font-medium text-left ${person === 'COMPLAINANT' ? 'bg-mainBlue' : 'bg-gray-100 text-gray-400'}`}>ДАННI ПОЗИВАЧА</button>
-                <button onClick={() => setPerson('DEFENDANT')} className={`p-3 rounded-3xl text-xs tracking-wider font-medium text-left ${person === 'DEFENDANT' ? 'bg-mainBlue' : 'bg-gray-100 text-gray-400'}`}>ДАННI ВIДПОВIДАЧА</button>
+                <button onClick={() => setPerson('COMPLAINANT')} className={`p-3 text-gray-700 rounded-3xl text-sm tracking-wider font-medium text-left ${person === 'COMPLAINANT' ? 'bg-white' : 'bg-gray-200'}`}>Данi позивача</button>
+                <button onClick={() => setPerson('DEFENDANT')} className={`p-3 text-gray-700 rounded-3xl text-sm tracking-wider font-medium text-left ${person === 'DEFENDANT' ? 'bg-white' : 'bg-gray-200'}`}>Данi вiдповiдача</button>
             </nav>
 
             <form className="w-full">
