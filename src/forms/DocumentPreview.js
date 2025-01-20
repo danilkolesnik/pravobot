@@ -53,7 +53,7 @@ const DocumentPreview = () => {
             ) : finalSample && (
                 <>
                     <div className="text-center">
-                        <h1 className="text-3xl text-gray-800">Дякуємо!</h1>
+                        <h1 className="text-3xl text-left font-medium text-gray-800">Дякуємо!</h1>
                         <p className="text-gray-800 mt-2">Ваш позов на розлучення готовий</p>
                         {/* <select
                             className="flex text-black flex-col w-full py-2 rounded border border-mainBlue"
@@ -63,11 +63,11 @@ const DocumentPreview = () => {
                             <option value="Word">Word</option>
                             <option value="PDF">PDF</option>
                         </select> */}
-                        <button onClick={documentFormat === 'Word' ? downloadWordDocument : downloadPDFDocument} className="text-white mt-2 p-2 bg-mainBlue rounded">Завантажити документ</button>
+                        <button onClick={documentFormat === 'Word' ? downloadWordDocument : downloadPDFDocument} className="mt-5 w-full text-white mt-2 p-2 bg-mainBlue rounded-2xl">Зберегти</button>
                     </div>
                     <div
                         id='document_preview'
-                        className="w-full border border-black p-4 text-gray-900"
+                        className="w-full rounded-xl bg-white p-4 text-gray-900"
                         // dangerouslySetInnerHTML={{ __html: renderDocument(finalSample) }}
                         dangerouslySetInnerHTML={{ __html: renderDocument(finalSample) }}
                     ></div>

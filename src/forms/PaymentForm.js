@@ -58,7 +58,7 @@ const PaymentForm = ({ documentData, progressIndex, handleSetIndex }) => {
         const pageData = JSON.parse(localStorage.getItem('page_data')) || [];
         return pageData.find(page => page.URL === 'terms');
     });
-    console.log(terms);
+    const [isChecked, setIsChecked] = useState(false);
     const [totalPrice, setTotalPrice] = useState(Number(documentData.ScenarioPrice) || 0);
     const [selectedServices, setSelectedServices] = useState([]);
 
@@ -141,12 +141,20 @@ const PaymentForm = ({ documentData, progressIndex, handleSetIndex }) => {
                     </div>
                 </div>
                 <div className='w-full md:w-4/5 lg:w-2/5 text-gray-800'>
-                    <input type="checkbox" className="mr-2" />
+                    <input 
+                        type="checkbox" 
+                        className="mr-2"
+                        checked={isChecked}
+                        onChange={() => setIsChecked(!isChecked)}
+                    />
                     <label>Я погоджуюсь на обробку персональних даних</label>
                 </div>
                 <button
-                    className='w-full md:w-4/5 lg:w-2/5 py-3 rounded-3xl bg-mainBlue text-white'
-                    onClick={() => payment(totalPrice)}
+                    className={`w-full md:w-4/5 lg:w-2/5 py-3 rounded-3xl text-white ${
+                        isChecked ? 'bg-mainBlue' : 'bg-mainBlue opacity-20 cursor-default'
+                    }`}
+                    onClick={() => isChecked && payment(totalPrice)}
+                    disabled={!isChecked}
                 >
                     Оплатити
                 </button>
