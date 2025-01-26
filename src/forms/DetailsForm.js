@@ -22,10 +22,18 @@ const DetailsForm = ({
         }));
     };
 
-    const handleFieldChange = (fieldShortcode, value) => {
+    const handleFieldChange = (fieldShortcode, value, validationType) => {
+        let validatedValue = value;
+    
+        if (validationType === "uppercase") {
+            validatedValue = value.toUpperCase(); 
+        } else if (validationType === "digits_only") {
+            validatedValue = value.replace(/\D/g, "");
+        }
+    
         setSelectedAnswers((prevAnswers) => ({
             ...prevAnswers,
-            [fieldShortcode]: value,
+            [fieldShortcode]: validatedValue,
         }));
     };
 
@@ -63,20 +71,22 @@ const DetailsForm = ({
                 <div className='w-3/5'>
                     {documentData.sectionsSlider &&
                         documentData.sectionsSlider[activeSection].fieldsSlider.map((field) => (
-                            <div className="flex flex-wrap gap-3" key={field.id}>
+                            <div className="flex flex-wrap gap-3 mt-3" key={field.id}>
                                 <label className='text-l font-medium text-gray-800'>
                                     <span style={{ color: 'red' }}>*{' '}</span>{field.FieldSectionTitle}
                                 </label>
+                                <div className='w-full flex flex-wrap'>
                                 {field.slider.map((slide) => (
                                     <input
                                         value={selectedAnswers[`${slide.FieldShortcode}`] || ''}
-                                        onChange={(e) => handleFieldChange(slide.FieldShortcode, e.target.value)}
+                                        onChange={(e) => handleFieldChange(slide.FieldShortcode, e.target.value, slide.Validation)}
                                         key={slide.id}
-                                        type="text"
+                                        type={slide.Validation === "digits_only" ? "number" : "text"}
                                         placeholder={slide.FieldTitle}
-                                        className="w-full border p-2 rounded-xl text-gray-800"    
+                                        className={`w-${slide.FieldWidth} border p-2 rounded-xl text-gray-800`}
                                     />
                                 ))}
+                                </div>
                             </div>
                         ))}
 

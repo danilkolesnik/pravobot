@@ -21,6 +21,17 @@ body {
   font-family: var(--font-anonymous-pro);
 }
 
+/* Удаление стрелочек в Chrome, Edge и Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Удаление стрелочек в Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 
 #payment_window {
   scrollbar-width: thin; /* Для Firefox */
