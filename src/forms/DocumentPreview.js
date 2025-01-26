@@ -3,6 +3,7 @@ import { renderDocument } from "@component/services/renderDocument";
 import { Loader } from '@component/ui/loader';
 import downloadWordDocument from "@component/services/downloadWordDocument";
 import downloadPDFDocument from "@component/services/downloadPDFDocument";
+import AttentionIcon from "@component/assets/icons/attentionIcon";
 
 const DocumentPreview = () => {
     
@@ -43,26 +44,33 @@ const DocumentPreview = () => {
     };
 
     useEffect(() => {
-        regenerateSample();
+        // regenerateSample();
     },[sample]);
 
     return (
         <div className="flex flex-col items-center gap-8 mt-8">
             {isLoading ? (
                 <Loader />
-            ) : finalSample && (
+            ) : sample && (
                 <>
-                    <div className="text-center">
-                        <h1 className="text-3xl text-left font-medium text-gray-800">Дякуємо!</h1>
+                    <div className="w-2/4 text-left">
+                        <h1 className="text-3xl font-medium text-gray-800">Дякуємо!</h1>
                         <p className="text-gray-800 mt-2">Ваш позов на розлучення готовий</p>
-                        {/* <select
-                            className="flex text-black flex-col w-full py-2 rounded border border-mainBlue"
+                        <div className='mt-6'>
+                        <label className='text-gray-800 text-l font-bold'>Оберіть формат файлу</label>
+                        <select
+                            className="mt-3 flex text-black flex-col w-full p-3 rounded-xl "
                             value={documentFormat}
                             onChange={handleFormatChange} // Обработчик изменения
                         >
-                            <option value="Word">Word</option>
-                            <option value="PDF">PDF</option>
-                        </select> */}
+                            <option value="Word">Word (.doc)</option>
+                            {/* <option value="PDF">PDF</option> */}
+                        </select>
+                        <div className='flex flex-row gap-3 mt-3 p-3 rounded-xl bg-green-100'>
+                            <AttentionIcon/>
+                            <p className='text-gray-800'>Подальші інструкції відправлені на пошту o-kovel@gmail.com та доступні за посиланням steps_rozluchennya.pdf</p>
+                        </div>
+                        </div>
                         <button onClick={documentFormat === 'Word' ? downloadWordDocument : downloadPDFDocument} className="mt-5 w-full text-white mt-2 p-2 bg-mainBlue rounded-2xl">Зберегти</button>
                     </div>
                     <div

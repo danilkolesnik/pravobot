@@ -82,7 +82,7 @@ const PaymentForm = ({ documentData, progressIndex, handleSetIndex }) => {
             handleSetIndex(progressIndex + 1);
         }
     }, [progressIndex, handleSetIndex]);
-
+    
     return (
         <div className='flex flex-col gap-16'>
             <div className='flex flex-col items-center gap-6 mt-5'>
@@ -105,7 +105,7 @@ const PaymentForm = ({ documentData, progressIndex, handleSetIndex }) => {
                                         selectedServices.map((service) => (
                                             <div key={service.id} className="flex flex-row justify-between">
                                                 <label>{service.ServiceName}</label>
-                                                <h2><b>{service.ServicePrice}.00 грн</b></h2>
+                                                <h2><b>{service.ServicePrice} грн</b></h2>
                                             </div>
                                         ))
                                     )}
@@ -113,7 +113,7 @@ const PaymentForm = ({ documentData, progressIndex, handleSetIndex }) => {
                             </>
                         )}
                         {documentData &&
-                            documentData.servicesSlider.map((service) => (
+                            documentData.servicesSlider?.map((service) => (
                                 <div key={service.id} className='flex flex-row justify-between bg-blue-100 border border-mainBlue p-4 rounded-2xl'>
                                     <div className='flex flex-row gap-2'>
                                         <input

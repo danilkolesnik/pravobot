@@ -7,6 +7,9 @@ import VisaIcon from "@component/assets/icons/visaIcon";
 import IdCheckIcon from "@component/assets/icons/idCheckIcon";
 
 const Footer = () => {
+
+    const space = ' ';
+
     return (
         <footer className="w-full flex flex-row justify-center bg-white">
             <div className='w-4/5 flex flex-col py-7'>
@@ -23,7 +26,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className='w-full flex flex-row justify-between items-center'>
-                    <p className='flex items-center text-gray-800 py-3'>© {new Date().getFullYear()} Pravobot. Усі права захищено.</p>
+                    <p className='text-gray-800 py-3'>© {new Date().getFullYear()} Pravobot. Використання цього вебсайту означає прийняття<a href='/terms' target='_blank'><span>{' '}<b>Умов використання </b></span></a>та<a href='/policy' target='_blank'><span>{' '}<b>Політики конфіденційності</b></span></a>.</p>
                     <a target="_blank" href="https://onebig.pro/" className='text-mainBlue'>onebig.pro</a>
                 </div>
             </div>

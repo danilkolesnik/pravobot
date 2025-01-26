@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const DetailsForm = ({ 
         progressIndex, 
@@ -41,10 +41,12 @@ const DetailsForm = ({
         }
     };
 
+    useEffect(() => { if (!documentData.sectionsSlider) handleSetIndex(progressIndex + 1)},[documentData]);
+    
     return (
         <div className="flex flex-col md:flex-row gap-8 mt-8">
             <nav className="w-full md:w-2/5 flex flex-col gap-2 items-left">
-                {documentData && documentData.sectionsSlider.map((item, index) => (
+                {documentData && documentData.sectionsSlider?.map((item, index) => (
                     <button 
                         key={item.id}
                         onClick={() => setActiveSection(index)}
@@ -59,7 +61,7 @@ const DetailsForm = ({
 
             <form className="w-full">
                 <div className='w-3/5'>
-                    {documentData &&
+                    {documentData.sectionsSlider &&
                         documentData.sectionsSlider[activeSection].fieldsSlider.map((field) => (
                             <div className="flex flex-wrap gap-3" key={field.id}>
                                 <label className='text-l font-medium text-gray-800'>
@@ -78,9 +80,8 @@ const DetailsForm = ({
                             </div>
                         ))}
 
-                        {documentData &&
+                        {documentData.sectionsSlider &&
                             documentData.sectionsSlider[activeSection].questionsSlider.map((question) => {
-                                // Находим текущий Answer по сохраненному FinalField
                                 const selectedFinalField = selectedAnswers[question.QuestionShortcode] || '';
                                 const selectedAnswer = question.slider.find(
                                     (s) => s.FinalField === selectedFinalField
