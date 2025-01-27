@@ -33,6 +33,24 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+.rdp-months {
+  color: #424242;
+}
+
+.rdp-chevron {
+  fill: #006FFD !important;
+}
+
+.rdp-selected > .rdp-day_button {
+  border: 2px solid #006FFD !important;
+}
+
+.rdp-day.rdp-today {
+  color: #006FFD !important;
+  font-style: bold;
+  font-weight: 600;
+}
+
 #payment_window {
   scrollbar-width: thin; /* Для Firefox */
   scrollbar-color: gray transparent; /* Цвет ползунка и фона */

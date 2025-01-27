@@ -1,5 +1,7 @@
 'use client';
 import React, { useEffect, useState } from "react";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 
 const DetailsForm = ({ 
         progressIndex, 
@@ -11,7 +13,7 @@ const DetailsForm = ({
         setUpdatedSample 
     }) => {
     
-    console.log('document Data', documentData);
+    // console.log('document Data', documentData);
 
     const [activeSection, setActiveSection] = useState(0);
      
@@ -49,6 +51,73 @@ const DetailsForm = ({
         }
     };
 
+    const renderFieldInput = (slide) => {
+    
+        const resetToMidnightUTC = (date) => {
+            const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+            return utcDate;
+        };
+    
+        if (slide.Validation === "CALENDAR") {
+            const [showCalendar, setShowCalendar] = useState(false);
+    
+            return (
+                <div key={slide.id} className="w-full relative">
+                    <input
+                        type="text"
+                        readOnly
+                        value={
+                            selectedAnswers[slide.FieldShortcode]
+                                ? selectedAnswers[slide.FieldShortcode]
+                                : ''
+                        }
+                        onClick={() => setShowCalendar(!showCalendar)}
+                        placeholder={slide.FieldTitle}
+                        className="w-full border p-2 rounded-xl text-gray-800 cursor-pointer"
+                    />
+                    {showCalendar && (
+                        <div className="absolute z-10 bg-white border p-2 rounded-xl mt-2">
+                            <DayPicker
+                                mode="single"
+                                selected={
+                                    selectedAnswers[slide.FieldShortcode]
+                                        ? new Date(selectedAnswers[slide.FieldShortcode])
+                                        : undefined
+                                }
+                                onSelect={(date) => {
+                                    if (date) {
+                                        const normalizedDate = resetToMidnightUTC(date);
+                                        handleFieldChange(
+                                            slide.FieldShortcode,
+                                            normalizedDate.toISOString().split("T")[0],
+                                            slide.Validation
+                                        );
+                                        setShowCalendar(false); // Закрыть календарь после выбора
+                                    }
+                                }}
+                            />
+                        </div>
+                    )}
+                </div>
+            );
+        } else {
+            return (
+                <input
+                    key={slide.id}
+                    value={selectedAnswers[slide.FieldShortcode] || ''}
+                    onChange={(e) =>
+                        handleFieldChange(slide.FieldShortcode, e.target.value, slide.Validation)
+                    }
+                    type={slide.Validation === "digits_only" ? "number" : "text"}
+                    placeholder={slide.FieldTitle}
+                    className={`w-${slide.FieldWidth} border p-2 rounded-xl text-gray-800`}
+                />
+            );
+        }
+    };
+    
+    
+
     useEffect(() => { if (!documentData.sectionsSlider) handleSetIndex(progressIndex + 1)},[documentData]);
     
     return (
@@ -76,16 +145,7 @@ const DetailsForm = ({
                                     <span style={{ color: 'red' }}>*{' '}</span>{field.FieldSectionTitle}
                                 </label>
                                 <div className='w-full flex flex-wrap'>
-                                {field.slider.map((slide) => (
-                                    <input
-                                        value={selectedAnswers[`${slide.FieldShortcode}`] || ''}
-                                        onChange={(e) => handleFieldChange(slide.FieldShortcode, e.target.value, slide.Validation)}
-                                        key={slide.id}
-                                        type={slide.Validation === "digits_only" ? "number" : "text"}
-                                        placeholder={slide.FieldTitle}
-                                        className={`w-${slide.FieldWidth} border p-2 rounded-xl text-gray-800`}
-                                    />
-                                ))}
+                                    {field.slider.map((slide) => renderFieldInput(slide))}
                                 </div>
                             </div>
                         ))}
