@@ -1,14 +1,17 @@
 
 const CloseIcon = () => {
     return (
-        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <mask id="mask0_2275_2529" style={{ maskType: 'alpha'}} maskUnits="userSpaceOnUse" x="1" y="1" width="19" height="18">
-            <path fillRule="evenodd" clipRule="evenodd" d="M2.11612 1.61612C2.60427 1.12796 3.39573 1.12796 3.88388 1.61612L18.8839 16.6161C19.372 17.1043 19.372 17.8957 18.8839 18.3839C18.3957 18.872 17.6043 18.872 17.1161 18.3839L2.11612 3.38388C1.62796 2.89573 1.62796 2.10427 2.11612 1.61612Z" fill="#006FFD"/>
-            <path fillRule="evenodd" clipRule="evenodd" d="M18.8839 1.61612C18.3957 1.12796 17.6043 1.12796 17.1161 1.61612L2.11612 16.6161C1.62796 17.1043 1.62796 17.8957 2.11612 18.3839C2.60427 18.872 3.39573 18.872 3.88388 18.3839L18.8839 3.38388C19.372 2.89573 19.372 2.10427 18.8839 1.61612Z" fill="#006FFD"/>
-            </mask>
-            <g mask="url(#mask0_2275_2529)">
-            <rect x="0.5" width="20" height="20" fill="#006FFD"/>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_2431_3735)">
+            <rect x="0.5" y="0.5" width="23" height="23" rx="6.5" stroke="#1F2024"/>
+            <path d="M9.17159 9.17151L14.8284 14.8284" stroke="#1F2024" strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="M9.17157 14.8284L14.8284 9.17152" stroke="#1F2024" strokeWidth="1.5" strokeLinecap="round"/>
             </g>
+            <defs>
+            <clipPath id="clip0_2431_3735">
+            <rect width="24" height="24" fill="white"/>
+            </clipPath>
+            </defs>
         </svg>
     );
 };

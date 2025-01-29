@@ -19,7 +19,7 @@ const Footer = () => {
                         <span className='flex flex-row items-center gap-2'><PhoneIcon />+380677660708</span>
                         <span className='flex flex-row items-center gap-2'><MailIcon />help@pravobot.com</span>
                     </div>
-                    <div className='w-full md:w-auto flex flex-row gap-2 items-center '>
+                    <div className='w-full md:w-auto flex flex-row gap-2 items-center justify-center md:justify-auto'>
                         <LiqPayIcon />
                         <VisaIcon />
                         <IdCheckIcon />

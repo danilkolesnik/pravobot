@@ -3,8 +3,9 @@ import MenuIcon from '@component/assets/icons/menuIcon';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { supabase } from '@component/supabase/supabaseClient';
-import CloseIcon from '@component/assets/icons/closeIcon';
 import Logo from '@component/assets/icons/logo';
+import Sidebar from './Sidebar';
+import CloseIcon from '@component/assets/icons/closeIcon';
 
 const Header = ({ title }) => {
     const router = useRouter();
@@ -59,19 +60,11 @@ const Header = ({ title }) => {
                 </div>
                 {/* {title && <h1 className='hidden md:block text-3xl text-blue-500 font-medium'>{title}</h1>} */}
                 <button onClick={toggleSidebar}>
-                    <MenuIcon className='cursor-pointer' />
+                    {isSidebarOpen ? <CloseIcon className='cursor-pointer' />: <MenuIcon className='cursor-pointer' />}
                 </button>
             </div>
-            <div className={`fixed flex flex-col gap-5 right-0 top-0 w-64 h-full bg-white shadow-lg transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                <div className='mx-5 flex flex-col gap-5 text-black'> 
-                    <div className='cursor-pointer mt-6 mx-5 flex justify-end' onClick={() => setIsSidebarOpen(false)} >
-                        <CloseIcon />
-                    </div>
-                    <p>Служба пiдтримки</p>
-                    <p>Контакти</p>
-                    <button className=' text-left text-black' onClick={() => setIsPopupOpen(true)}>Войти</button>
-                </div>
-            </div>
+
+            <Sidebar isSidebarOpen={isSidebarOpen} setIsPopupOpen={setIsPopupOpen} />
 
             {isPopupOpen && (
                 <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'>
