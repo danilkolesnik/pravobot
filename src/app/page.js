@@ -69,21 +69,22 @@ const Home = () => {
             {isLoading ? <Loader /> : 
                 (<>
                     <Header />
-                    <main className='flex flex-col flex-grow items-center mt-28 w-1/3'>
+                    <main className='flex flex-col flex-grow items-center mt-4 md:mt-28 w-4/5 md:w-1/3'>
                         <div className='flex flex-col items-center'>
                             <Image
-                                    src={logo}
-                                    alt='Scales of Justice'
-                                    width={50} 
-                                    height={70}
-                                />
-                            <h1 className='text-4xl text-gray-700 font-medium mb-2 mt-5 text-center'>
+                                src={logo}
+                                alt='Scales of Justice'
+                                width={50} 
+                                height={70}
+                                className='hidden md:block'
+                            />
+                            <h1 className='text-4xl text-gray-700 font-medium mb-2 mt-5 text-left md:text-center'>
                                 Автоматична Система Генерування Позовів
                             </h1>
-                            <p className='text-gray-600 mb-8 text-center'>
+                            <p className='text-gray-600 mb-8 mt-3 md:mt-0 text-left md:text-center'>
                             Оберіть тип позову, заповніть дані та отримайте готову заяву для подання до суду.
                             </p>
-                            <div className='flex flex-col items-left w-2/3'>
+                            <div className='flex flex-col items-left w-full md:w-2/3'>
                                 <select
                                     id="lawsuit-type"
                                     className='text-gray-600 rounded-3xl px-4 py-3'
