@@ -114,7 +114,7 @@ const CreateDocument = () => {
                 </button>
               </nav> */}
 
-              <button className='block md:hidden p-2 text-left text-mainBlue border border-mainBlue'>{progressIndex+1} {getProgressName(progressIndex+1)}</button>
+              {/* <button className='block md:hidden p-2 text-left text-mainBlue border border-mainBlue'>{progressIndex+1} {getProgressName(progressIndex+1)}</button> */}
               <main className="flex-1">
                 {progressIndex === 1 && 
                   <PersonalDataForm 

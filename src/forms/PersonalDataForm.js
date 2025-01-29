@@ -42,7 +42,7 @@ const PersonalDataForm = ({
 
             <form className="w-full">
               {/* ПIБ */}
-              <div className='w-3/5'>
+              <div className='w-full md:w-3/5'>
                 <div className="flex flex-col gap-3">
                   <label className='text-l font-medium text-gray-800 text-black'><span style={{color: 'red'}}>* </span>ПIБ {person === 'COMPLAINANT' ? 'Позивача' : 'Вiдповiдача'}</label>
                   <input

@@ -137,7 +137,7 @@ const DetailsForm = ({
             </nav>
 
             <form className="w-full">
-                <div className='w-3/5'>
+                <div className='w-full md:w-3/5'>
                     {documentData.sectionsSlider &&
                         documentData.sectionsSlider[activeSection].fieldsSlider.map((field) => (
                             <div className="flex flex-wrap gap-3 mt-3" key={field.id}>

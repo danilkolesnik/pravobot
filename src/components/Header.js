@@ -7,7 +7,8 @@ import Logo from '@component/assets/icons/logo';
 import Sidebar from './Sidebar';
 import CloseIcon from '@component/assets/icons/closeIcon';
 
-const Header = ({ title }) => {
+const Header = () => {
+
     const router = useRouter();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
