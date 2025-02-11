@@ -7,6 +7,7 @@ import { Loader } from '@component/ui/loader';
 import Header from '@component/components/Header';
 import Footer from '@component/components/Footer';
 import logo from '@component/assets/images/logo.png';
+import SearchIcon from '@component/assets/icons/searchIcon';
 
 const Home = () => {
     
@@ -85,21 +86,26 @@ const Home = () => {
                             Оберіть тип позову, заповніть дані та отримайте готову заяву для подання до суду.
                             </p>
                             <div className='flex flex-col items-left w-full md:w-2/3'>
-                                <select
-                                    id="lawsuit-type"
-                                    className='text-gray-600 rounded-3xl px-4 py-3'
-                                    value={selectedType}
-                                    onChange={handleChange}
-                                >
-                                    {!isTypePicked && <option value="">Оберіть тип позову</option>}
-                                    {documentData &&
-                                        documentData.map((item, index) => (
-                                            <option key={item.id} value={index}>
-                                                {item.ScenarioTitle}
-                                            </option>
-                                        ))}
-                                </select>
-
+                                <div className='relative'>
+                                    <select
+                                        id="lawsuit-type"
+                                        className='w-full text-gray-600 rounded-3xl px-4 py-3 focus:outline-none focus:ring-0'
+                                        value={selectedType}
+                                        onChange={handleChange}
+                                    >
+                                        {!isTypePicked && <option value="">Оберіть тип позову</option>}
+                                        {documentData &&
+                                            documentData.map((item, index) => (
+                                                <option key={item.id} value={index}>
+                                                    {item.ScenarioTitle}
+                                                </option>
+                                            ))}
+                                        
+                                    </select>
+                                    <span className='absolute top-4 right-4'>
+                                        <SearchIcon />
+                                    </span>
+                                </div>
                                 <button onClick={handleContinue} className={`${!isTypePicked && 'opacity-20 cursor-default'} mt-3 bg-mainBlue h-12 rounded-3xl`}>Далi</button>
                             </div>
                         </div>
