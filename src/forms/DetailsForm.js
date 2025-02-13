@@ -13,8 +13,6 @@ const DetailsForm = ({
         updatedSample, 
         setUpdatedSample 
     }) => {
-    
-    console.log('document Data', documentData);
 
     const componentMap = {
         "[CHILDREN]": ChildrenForm,
@@ -32,7 +30,7 @@ const DetailsForm = ({
     };
 
     const handleFieldChange = (fieldShortcode, value, validationType) => {
-        console.log('VALIDATION');
+
         let validatedValue = value;
 
         if (validationType === "uppercase") {
