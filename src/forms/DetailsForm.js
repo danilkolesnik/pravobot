@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import ChildrenForm from "./ChildrenForm";
 
 const DetailsForm = ({ 
         progressIndex, 
@@ -13,10 +14,16 @@ const DetailsForm = ({
         setUpdatedSample 
     }) => {
     
-    // console.log('document Data', documentData);
+    console.log('document Data', documentData);
+
+    const componentMap = {
+        "[CHILDREN]": ChildrenForm,
+    };
 
     const [activeSection, setActiveSection] = useState(0);
-     
+
+    const [showCalendar, setShowCalendar] = useState(false);
+
     const handleAnswerChange = (questionShortcode, FinalField) => {
         setSelectedAnswers((prevAnswers) => ({
             ...prevAnswers,
@@ -25,14 +32,15 @@ const DetailsForm = ({
     };
 
     const handleFieldChange = (fieldShortcode, value, validationType) => {
+        console.log('VALIDATION');
         let validatedValue = value;
-    
+
         if (validationType === "uppercase") {
             validatedValue = value.toUpperCase(); 
         } else if (validationType === "digits_only") {
             validatedValue = value.replace(/\D/g, "");
         }
-    
+
         setSelectedAnswers((prevAnswers) => ({
             ...prevAnswers,
             [fieldShortcode]: validatedValue,
@@ -52,25 +60,20 @@ const DetailsForm = ({
     };
 
     const renderFieldInput = (slide) => {
-    
+
         const resetToMidnightUTC = (date) => {
             const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
             return utcDate;
         };
-    
-        if (slide.Validation === "CALENDAR") {
-            const [showCalendar, setShowCalendar] = useState(false);
-    
+
+        if (slide.Validation === "Date") {
+
             return (
                 <div key={slide.id} className="w-full relative">
                     <input
                         type="text"
                         readOnly
-                        value={
-                            selectedAnswers[slide.FieldShortcode]
-                                ? selectedAnswers[slide.FieldShortcode]
-                                : ''
-                        }
+                        value={selectedAnswers[slide.FieldShortcode] ? selectedAnswers[slide.FieldShortcode] : ''}
                         onClick={() => setShowCalendar(!showCalendar)}
                         placeholder={slide.FieldTitle}
                         className="w-full border p-2 rounded-xl text-gray-800 cursor-pointer"
@@ -79,11 +82,7 @@ const DetailsForm = ({
                         <div className="absolute z-10 bg-white border p-2 rounded-xl mt-2">
                             <DayPicker
                                 mode="single"
-                                selected={
-                                    selectedAnswers[slide.FieldShortcode]
-                                        ? new Date(selectedAnswers[slide.FieldShortcode])
-                                        : undefined
-                                }
+                                selected={selectedAnswers[slide.FieldShortcode] ? new Date(selectedAnswers[slide.FieldShortcode]) : undefined}
                                 onSelect={(date) => {
                                     if (date) {
                                         const normalizedDate = resetToMidnightUTC(date);
@@ -92,7 +91,7 @@ const DetailsForm = ({
                                             normalizedDate.toISOString().split("T")[0],
                                             slide.Validation
                                         );
-                                        setShowCalendar(false); // Закрыть календарь после выбора
+                                        setShowCalendar(false);
                                     }
                                 }}
                             />
@@ -105,9 +104,7 @@ const DetailsForm = ({
                 <input
                     key={slide.id}
                     value={selectedAnswers[slide.FieldShortcode] || ''}
-                    onChange={(e) =>
-                        handleFieldChange(slide.FieldShortcode, e.target.value, slide.Validation)
-                    }
+                    onChange={(e) => handleFieldChange(slide.FieldShortcode, e.target.value, slide.Validation)}
                     type={slide.Validation === "digits_only" ? "number" : "text"}
                     placeholder={slide.FieldTitle}
                     className={`w-${slide.FieldWidth} border p-2 rounded-xl text-gray-800`}
@@ -115,31 +112,36 @@ const DetailsForm = ({
             );
         }
     };
-    
-    
 
-    useEffect(() => { if (!documentData.sectionsSlider) handleSetIndex(progressIndex + 1)},[documentData]);
-    
+    const combinedSlider = [
+        ...documentData?.sectionsSlider,
+        ...(documentData?.additionalSlider || []),
+    ];
+
+    useEffect(() => { 
+        if (!documentData.sectionsSlider) handleSetIndex(progressIndex + 1)
+    }, [documentData]);
+
     return (
         <div className="flex flex-col md:flex-row gap-8 mt-8">
             <nav className="w-full md:w-2/5 flex flex-col gap-2 items-left">
-                {documentData && documentData.sectionsSlider?.map((item, index) => (
+
+                {documentData && combinedSlider?.map((item, index) => (
                     <button 
                         key={item.id}
                         onClick={() => setActiveSection(index)}
-                        className={`p-3 rounded-3xl text-xs tracking-wider font-medium text-left  ${activeSection === index ? 'bg-mainBlue' : 'bg-gray-100 text-gray-400'}`}
+                        className={`p-3 rounded-3xl text-xs tracking-wider font-medium text-left ${activeSection === index ? 'bg-mainBlue' : 'bg-gray-100 text-gray-400'}`}
                     >
-                        {item.SectionTitle}
+                        {item.SectionTitle || item.AdditionalFieldName}
                     </button>
-                ))};
-                {/* <button className="p-2 text-left bg-mainBlue">2.1 ДАННI ПОЗИВАЧА</button>
-                <button className="p-2 text-left ">2.2 ДАННI ВIДПОВIДАЧА</button> */}
+                ))}
+
             </nav>
 
             <form className="w-full">
                 <div className='w-full md:w-3/5'>
                     {documentData.sectionsSlider &&
-                        documentData.sectionsSlider[activeSection].fieldsSlider.map((field) => (
+                        documentData.sectionsSlider[activeSection]?.fieldsSlider?.map((field) => (
                             <div className="flex flex-wrap gap-3 mt-3" key={field.id}>
                                 <label className='text-l font-medium text-gray-800'>
                                     <span style={{ color: 'red' }}>*{' '}</span>{field.FieldSectionTitle}
@@ -151,7 +153,7 @@ const DetailsForm = ({
                         ))}
 
                         {documentData.sectionsSlider &&
-                            documentData.sectionsSlider[activeSection].questionsSlider.map((question) => {
+                            documentData.sectionsSlider[activeSection]?.questionsSlider?.map((question) => {
                                 const selectedFinalField = selectedAnswers[question.QuestionShortcode] || '';
                                 const selectedAnswer = question.slider.find(
                                     (s) => s.FinalField === selectedFinalField
@@ -186,6 +188,15 @@ const DetailsForm = ({
                                     </div>
                                 );
                             })}
+
+                        {!documentData.sectionsSlider[activeSection] && documentData?.additionalSlider?.map((item) => {
+
+                            const ComponentToRender = componentMap[item.AdditionalFieldCode];
+
+                            if (ComponentToRender) {
+                                return <ComponentToRender selectedAnswers={selectedAnswers} handleAnswerChange={handleAnswerChange} handleFieldChange={handleFieldChange} key={item.id} />;
+                            }
+                        })}
 
                     <button
                         type="button"

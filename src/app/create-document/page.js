@@ -12,7 +12,7 @@ const CreateDocument = () => {
 
   const router = useRouter();
 
-  const [progressIndex, setProgressIndex] = useState(1);
+  const [progressIndex, setProgressIndex] = useState(2);
   const [isLoading, setIsLoading] = useState(true);
   const [documentData, setDocumentData] = useState(null);
   const [updatedSample, setUpdatedSample] = useState(null);
