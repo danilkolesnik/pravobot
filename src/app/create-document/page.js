@@ -58,16 +58,16 @@ const CreateDocument = () => {
   };
 
   const ProgressBar = ({ progressIndex }) => {
-    // Количество этапов
+
     const totalSteps = 4;
-  
+
     return (
-      <div className="flex gap-2">
+      <div className="w-full flex gap-2">
         {Array.from({ length: totalSteps }).map((_, index) => (
           <div
             key={index}
             className={`h-1 flex-1 rounded-xl ${
-              index < progressIndex ? 'bg-mainBlue' : 'bg-gray-300'
+              index < progressIndex ? 'bg-mainBlue' : 'bg-white'
             }`}
           ></div>
         ))}
@@ -89,34 +89,13 @@ const CreateDocument = () => {
         ) : documentData ? (
           <>
             <Header title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />
-            <div className='w-4/5 bg-white'>
-              <div id='progress_bar' className={`h-1 self-start bg-mainBlue rounded-xl`} style={{ width: `${(progressIndex / 4) * 100}%` }}></div>
+            {/* Progress bar */}
+            <div className='w-4/5'>
+              <ProgressBar progressIndex={progressIndex} />
+              {/* <div id='progress_bar' className={`h-1 self-start bg-mainBlue rounded-xl`} style={{ width: `${(progressIndex / 4) * 100}%` }}></div> */}
             </div>
-            {/* <ProgressBar /> */}
+            {/* Forms */}
             <div className="flex flex-col min-h-screen w-4/5 mt-8 mb-8 mx-auto">
-              {/* <nav className="h-12 hidden md:flex flex-row gap-3">
-                <button onClick={() => router.push('/')} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 0 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
-                  <span>1 {getProgressName(1)}</span>
-                  {progressIndex >= 1 && <span>✓</span>}
-                </button>
-                <button onClick={() => setProgressIndex(1)} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 1 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
-                  <span>2 {getProgressName(2)}</span>
-                  {progressIndex >= 2 && <span>✓</span>}
-                </button>
-                <button onClick={() => setProgressIndex(2)} className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 2 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
-                  <span>3 {getProgressName(3)}</span>
-                  {progressIndex >= 3 && <span>✓</span>}
-                </button>
-                <button className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 3 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
-                  <span>4 {getProgressName(4)}</span>
-                  {progressIndex >= 4 && <span>✓</span>}
-                </button>
-                <button className={`flex items-center justify-between w-full p-2 text-left border ${progressIndex >= 4 ? 'border-blue-500 rounded text-blue-500' : ' rounded'}`}>
-                  <span>5 {getProgressName(5)}</span>
-                </button>
-              </nav> */}
-
-              {/* <button className='block md:hidden p-2 text-left text-mainBlue border border-mainBlue'>{progressIndex+1} {getProgressName(progressIndex+1)}</button> */}
               <main className="flex-1">
                 {progressIndex === 1 && 
                   <PersonalDataForm 
@@ -137,7 +116,12 @@ const CreateDocument = () => {
                     updatedSample={updatedSample} 
                     setUpdatedSample={setUpdatedSample} 
                   />}
-                {progressIndex === 3 && <PaymentForm documentData={documentData} progressIndex={progressIndex} handleSetIndex={handleSetIndex} />}
+                {progressIndex === 3 && 
+                  <PaymentForm 
+                    documentData={documentData} 
+                    progressIndex={progressIndex} 
+                    handleSetIndex={handleSetIndex} 
+                  />}
               </main>
             </div>
             <Footer />
