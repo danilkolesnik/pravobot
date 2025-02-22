@@ -54,7 +54,7 @@ const Header = () => {
 
     return (
         <header className='w-full flex flex-row justify-center sticky'>
-            <div className='w-4/5 flex flex-row justify-between items-center mx-6 py-6 border-b border-[#CFC7C7]'>
+            <div className='w-4/5 flex flex-row justify-between items-center mx-6 py-6'>
                 <div className='flex flex-row gap-3 items-center'>
                     <Logo />
                     <h1 onClick={handleReturn} className='text-xl text-gray-800 text-bold font-bold cursor-pointer select-none'>Pravobot</h1>
