@@ -4,6 +4,7 @@ import DatePickerInput from "@component/ui/forms/DatePickerInput";
 import { resetToMidnightUTC } from "@component/services/resetToMidnightUTC";
 import { useState } from "react";
 import LocationIcon from "@component/assets/icons/locationIcon";
+import SuccessIcon from "@component/assets/icons/successIcon";
 
 const PersonalDataForm = ({ 
     progressIndex, 
@@ -15,6 +16,16 @@ const PersonalDataForm = ({
   }) => {
     
     const [person, setPerson] = useState('COMPLAINANT');
+    const [completedSteps, setCompletedSteps] = useState({
+      COMPLAINANT: false,
+      DEFENDANT: false,
+    });
+    const [isSaved, setIsSaved] = useState(false);  // Для отслеживания сохранения
+    
+    const handleButtonClick = (personType) => {
+      setPerson(personType);
+    };
+
     const [isAddressMatch, setIsAddressMatch] = useState(false);
     const [showCalendar, setShowCalendar] = useState(false);
 
@@ -38,6 +49,22 @@ const PersonalDataForm = ({
       }
     };
 
+    const handleSave = () => {
+      window.scrollTo(0, 0);
+      if (person === 'COMPLAINANT') {
+        setPerson('DEFENDANT');
+        setCompletedSteps((prev) => ({ ...prev, [person]: true }));
+        setIsSaved(true); 
+      } else {
+        let updatedSample = documentData.Sample;
+        Object.keys(selectedAnswers).forEach((shortcode) => {
+            updatedSample = updatedSample.replace(shortcode, selectedAnswers[shortcode]);
+        });
+        setUpdatedSample(updatedSample);
+        handleSetIndex(progressIndex + 1);
+      }
+    };
+
     const requiredFields = [
       `[${person}_NAME]`,
       `[${person}_LASTNAME]`,
@@ -49,7 +76,9 @@ const PersonalDataForm = ({
       `[${person}_REGISTRATION_INDEX]`,
       `[${person}_REGISTRATION_CITY]`,
       `[${person}_REGISTRATION_STREET]`,
-      `[${person}_REGISTRATION_HOUSE]`
+      `[${person}_REGISTRATION_HOUSE]`,
+      `[${person}_PHONE_NUMBER]`,
+      `[${person}_EMAIL]`
     ];
     
     const additionalFields = [
@@ -76,8 +105,24 @@ const PersonalDataForm = ({
 
             {/* Navigation */}
             <nav className='w-full md:w-1/5 flex flex-col gap-2 items-left md:sticky' style={{ top: '15rem' }}>
-                <button onClick={() => setPerson('COMPLAINANT')} className={`p-3 text-gray-700 rounded-3xl text-sm tracking-wider font-medium text-left ${person === 'COMPLAINANT' ? 'bg-white text-gray-700' : 'bg-gray-200 text-gray-800 opacity-50'}`}>Данi позивача</button>
-                <button onClick={() => setPerson('DEFENDANT')} className={`p-3 rounded-3xl text-sm tracking-wider font-medium text-left ${person === 'DEFENDANT' ? 'bg-white text-gray-700' : 'bg-gray-200 text-gray-800 opacity-50'}`}>Данi вiдповiдача</button>
+              <button 
+                onClick={() => handleButtonClick('COMPLAINANT')} 
+                className={`flex flex-row items-center gap-3 p-3 text-gray-700 rounded-3xl text-sm tracking-wider font-medium text-left ${person === 'COMPLAINANT' ? 'bg-white text-gray-700' : 'bg-gray-200 text-gray-800 opacity-50'}`}
+              >
+                <span>
+                  Данi позивача
+                </span>
+                {completedSteps.COMPLAINANT && <SuccessIcon />}
+              </button>
+              <button 
+                onClick={() => handleButtonClick('DEFENDANT')} 
+                className={`flex flex-row gap-3 p-3 rounded-3xl text-sm tracking-wider font-medium text-left ${person === 'DEFENDANT' ? 'bg-white text-gray-700' : 'bg-gray-200 text-gray-800 opacity-50'}`}
+              >
+                <span>
+                  Данi вiдповiдача
+                </span>
+                {completedSteps.DEFENDANT && <SuccessIcon />}
+              </button>
             </nav>
 
             <form className="w-full">
@@ -232,12 +277,11 @@ const PersonalDataForm = ({
                     placeholder="Електронна пошта"
                   />
                 </div>
-                <button type="button" onClick={() => {
-                    window.scrollTo(0, 0);
-                    handleNextStep();
-                  }}
+                <button 
+                  type="button" 
+                  onClick={handleSave}
                   className={`w-full mt-10 mb-10 bg-mainBlue text-white px-4 py-2 rounded-2xl ${isFormComplete ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-300 opacity-50'}`}
-                  disabled={!isFormComplete}
+                  // disabled={!isFormComplete}
                 >
                   Зберегти
                 </button>
