@@ -1,6 +1,9 @@
 'use client';
 import React, { useEffect, useState } from "react";
 import CourtForm from "../addons/CourtForm";
+import CustomInput from "@component/ui/forms/CustomInput";
+import DatePickerInput from "@component/ui/forms/DatePickerInput";
+import { resetToMidnightUTC } from "@component/services/resetToMidnightUTC";
 import ChildrenForm from "../addons/ChildrenForm";
 import SuccessIcon from "@component/assets/icons/successIcon";
 
@@ -26,6 +29,7 @@ const CustomData = ({
     };
 
     const [activeSection, setActiveSection] = useState(0);
+    const [showCalendar, setShowCalendar] = useState(false);
     const [connectedAddons, setConnectedAddons] = useState({
         "[COURT]": true,
     });
@@ -42,6 +46,63 @@ const CustomData = ({
             id: key
         }))
     ];
+
+    const renderFieldInput = (slide) => {
+        if (slide.Validation === "Date") {
+            return (
+                <DatePickerInput
+                    key={slide.id}
+                    value={selectedAnswers[slide.FieldShortcode] ? selectedAnswers[slide.FieldShortcode] : ''}
+                    onClick={() => setShowCalendar((prev) => !prev)}
+                    onSelect={(date) => {
+                        if (date) {
+                            const normalizedDate = resetToMidnightUTC(date);
+                            handleFieldChange(
+                                slide.FieldShortcode,
+                                normalizedDate.toISOString().split("T")[0],
+                                slide.Validation
+                            );
+                            setShowCalendar(false);
+                        }
+                    }}
+                    showCalendar={showCalendar}
+                />
+            );
+        } else {
+            return (
+                <CustomInput 
+                    key={slide.id}
+                    value={selectedAnswers[slide.FieldShortcode] || ''}
+                    onChange={(newValue) => handleFieldChange(slide.FieldShortcode, newValue, slide.Validation)}
+                    type={slide.Validation === "digits_only" ? "number" : "text"}
+                    placeholder={slide.FieldTitle}
+                />
+            );
+        }
+    };
+
+    const handleFieldChange = (fieldShortcode, value, validationType) => {
+
+        let validatedValue = value;
+
+        if (validationType === "uppercase") {
+            validatedValue = value.toUpperCase(); 
+        } else if (validationType === "digits_only") {
+            validatedValue = value.replace(/\D/g, "");
+        }
+
+        setSelectedAnswers((prevAnswers) => ({
+            ...prevAnswers,
+            [fieldShortcode]: validatedValue,
+        }));
+    };
+
+    const handleAnswerChange = (questionShortcode, FinalField) => {
+        setSelectedAnswers((prevAnswers) => ({
+            ...prevAnswers,
+            [questionShortcode]: FinalField,
+        }));
+    };
 
     const handleAddonChange = (addonCode, isChecked) => {
         setSelectedAddons(prev => ({
@@ -63,12 +124,6 @@ const CustomData = ({
         }
     };
 
-    useEffect(() => {
-        console.log('connectedAddons', connectedAddons);
-        console.log('selectedAddons', selectedAddons);
-        console.log('evrika', activeSection - Object.keys(connectedAddons).length, Object.keys(connectedAddons)[activeSection - Object.keys(selectedAddons).length]);
-
-    });
     return (
         <div className="flex flex-col md:flex-row gap-8 mt-8">
             {/* Navigation */}
@@ -89,34 +144,86 @@ const CustomData = ({
             
             {/* Forms */}
             <form className="w-full">
-
-                <div className="w-full md:w-4/5 flex flex-col gap-4">
+                <div className="w-full md:w-3/6 md:ml-32">
                     {documentData?.sectionsSlider[activeSection]?.questionsSlider.length > 0 && (
                         documentData.sectionsSlider[activeSection]?.questionsSlider.map((question) => (
                             <div key={question.id}>
-                            VOPROS
-                            {documentData?.sectionsSlider[activeSection]?.addonsSlider.map(addon => (
-                                <div key={addon.id} className="flex items-center">
-                                    <input 
-                                        type="checkbox" 
-                                        id={addon.AddonCode} 
-                                        checked={selectedAddons[addon.AddonCode] || false}
-                                        onChange={(e) => handleAddonChange(addon.AddonCode, e.target.checked)} 
-                                    />
-                                    <label htmlFor={addon.AddonCode} className="ml-2">{addon.AddonHeader}</label>
-                                </div>
-                            ))}
+
+                                {/* FIELDS */}
+                                {documentData.sectionsSlider &&
+                                documentData.sectionsSlider[activeSection]?.fieldsSlider?.map((field) => (
+                                    <div className="flex flex-wrap gap-3 mt-3" key={field.id}>
+                                        <label className='text-l font-medium text-gray-800'>
+                                            {field.FieldSectionTitle}
+                                        </label>
+                                        <div className='w-full flex flex-wrap gap-3'>
+                                            {field.slider.map((slide) => renderFieldInput(slide))}
+                                        </div>
+                                    </div>
+                                ))}
+
+                                {/* QUESTIONS */}
+                                {documentData.sectionsSlider &&
+                                documentData.sectionsSlider[activeSection]?.questionsSlider?.map((question) => {
+                                    const selectedFinalField = selectedAnswers[question.QuestionShortcode] || '';
+                                    const selectedAnswer = question.slider.find(
+                                        (s) => s.FinalField === selectedFinalField
+                                    )?.Answer || '';
+
+                                    return (
+                                        <div className="mt-6 flex flex-wrap gap-3" key={question.id}>
+                                            <label className="text-l font-medium text-gray-800">
+                                                {question.Question}
+                                            </label>
+                                            <select
+                                                className="w-full border p-2 rounded-xl text-gray-800"
+                                                value={selectedAnswer}
+                                                onChange={(e) => {
+                                                    const selectedAnswer = e.target.value;
+                                                    const finalField = question.slider.find(
+                                                        (s) => s.Answer === selectedAnswer
+                                                    )?.FinalField || '';
+                                                    handleAnswerChange(question.QuestionShortcode, finalField);
+                                                }}
+                                            >
+                                                <option value="" disabled>
+                                                    Виберiть вiдповiдь
+                                                </option>
+                                                {question.slider.map((answer) => (
+                                                    <option key={answer.id} value={answer.Answer}>
+                                                        {answer.Answer}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    );
+                                })}
+                                {/* ADDON SELECT */}
+                                {documentData?.sectionsSlider[activeSection]?.addonsSlider.map(addon => (
+                                    <div key={addon.id} className="flex items-center mt-6">
+                                        <input 
+                                            type="checkbox" 
+                                            id={addon.AddonCode} 
+                                            checked={selectedAddons[addon.AddonCode] || false}
+                                            onChange={(e) => handleAddonChange(addon.AddonCode, e.target.checked)} 
+                                        />
+                                        <label htmlFor={addon.AddonCode} className="ml-3 text-l font-medium text-gray-800 text-black">{addon.AddonHeader}</label>
+                                    </div>
+                                ))}
                             </div>
                         ))
                     )}
+                    {/* Addons */}
                     {!documentData?.sectionsSlider[activeSection]?.questionsSlider?.length && (
                         Object.keys(connectedAddons)[activeSection - Object.keys(selectedAddons).length] ? (
                             React.createElement(
-                                addons[Object.keys(connectedAddons)[activeSection - Object.keys(selectedAddons).length]]?.component
+                            addons[Object.keys(connectedAddons)[activeSection - Object.keys(selectedAddons).length]]?.component,
+                            { someProp: 'value', anotherProp: 'anotherValue' }
                             )
                         ) : (
                             React.createElement(
-                                addons[Object.keys(connectedAddons)[0]]?.component
+                            addons[Object.keys(connectedAddons)[0]]?.component,
+                            { someProp: 'value', anotherProp: 'anotherValue' }
                             )
                         )
                     )}

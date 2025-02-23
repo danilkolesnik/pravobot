@@ -1,8 +1,8 @@
 'use client';
 
-const CourtForm = () => {
+const CourtForm = ({someProp}) => {
 
-    console.log('TESDT');
+    console.log(someProp);
     
     return (
         <div className="w-full text-black">
