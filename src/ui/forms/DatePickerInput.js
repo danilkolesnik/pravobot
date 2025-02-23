@@ -11,7 +11,7 @@ const DatePickerInput = ({ value, onClick, onSelect, showCalendar }) => {
                 readOnly
                 value={value}
                 onClick={onClick}
-                placeholder="Выберите дату"
+                placeholder="ДД/ММ/РР"
                 className="w-full p-3 pl-4 rounded-xl text-gray-800 cursor-pointer focus:outline-none"
             />
             <span className='absolute top-4 right-4'>
