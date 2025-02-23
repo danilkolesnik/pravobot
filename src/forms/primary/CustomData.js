@@ -34,6 +34,7 @@ const CustomData = ({
         "[COURT]": true,
     });
     const [selectedAddons, setSelectedAddons] = useState({});
+    const [completedSections, setCompletedSections] = useState({});
 
     useEffect(() => {
         console.log(documentData);
@@ -82,7 +83,6 @@ const CustomData = ({
     };
 
     const handleFieldChange = (fieldShortcode, value, validationType) => {
-
         let validatedValue = value;
 
         if (validationType === "uppercase") {
@@ -124,6 +124,34 @@ const CustomData = ({
         }
     };
 
+    const handleSave = () => {
+        if (activeSection + 1 < combinedSections.length) {
+            setActiveSection(activeSection + 1);
+        } else {
+            Object.keys(selectedAnswers).forEach((shortcode) => {
+                updatedSample = updatedSample.replace(shortcode, selectedAnswers[shortcode]);
+            });
+            setUpdatedSample(updatedSample);
+            handleSetIndex(progressIndex + 1);
+        }
+
+        setCompletedSections((prev) => ({
+            ...prev,
+            [combinedSections[activeSection].id]: true,
+        }));
+    };
+
+    const requiredFields = [
+        ...documentData?.sectionsSlider[activeSection]?.fieldsSlider.flatMap(field => 
+            field.slider.map(slide => slide.FieldShortcode)
+        ) || [],
+        ...documentData?.sectionsSlider[activeSection]?.questionsSlider.flatMap(question => 
+            question.slider.map(slide => question.QuestionShortcode)
+        ) || []
+    ];
+
+    const isFormComplete = requiredFields.every(field => selectedAnswers[field]?.trim());
+
     return (
         <div className="flex flex-col md:flex-row gap-8 mt-8">
             {/* Navigation */}
@@ -137,7 +165,7 @@ const CustomData = ({
                         <span>
                             {section.SectionTitle}
                         </span>
-                        <SuccessIcon />
+                        {completedSections[section.id] && <SuccessIcon />}
                     </button>
                 ))}
             </nav>
@@ -148,7 +176,6 @@ const CustomData = ({
                     {documentData?.sectionsSlider[activeSection]?.questionsSlider.length > 0 && (
                         documentData.sectionsSlider[activeSection]?.questionsSlider.map((question) => (
                             <div key={question.id}>
-
                                 {/* FIELDS */}
                                 {documentData.sectionsSlider &&
                                 documentData.sectionsSlider[activeSection]?.fieldsSlider?.map((field) => (
@@ -161,7 +188,6 @@ const CustomData = ({
                                         </div>
                                     </div>
                                 ))}
-
                                 {/* QUESTIONS */}
                                 {documentData.sectionsSlider &&
                                 documentData.sectionsSlider[activeSection]?.questionsSlider?.map((question) => {
@@ -227,6 +253,15 @@ const CustomData = ({
                             )
                         )
                     )}
+                    {/* Save button */}
+                    <button 
+                        type="button" 
+                        onClick={handleSave}
+                        className={`w-full mt-10 mb-10 bg-mainBlue text-white px-4 py-2 rounded-2xl ${isFormComplete ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-300 opacity-50'}`}
+                        disabled={!isFormComplete}
+                    >
+                        Зберегти
+                    </button>
                 </div>
             </form>
         </div>

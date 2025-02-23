@@ -262,6 +262,7 @@ const PersonalData = ({
                     placeholder="Електронна пошта"
                   />
                 </div>
+                {/* Save button */}
                 <button 
                   type="button" 
                   onClick={handleSave}

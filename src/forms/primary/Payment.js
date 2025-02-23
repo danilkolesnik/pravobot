@@ -133,9 +133,9 @@ const PaymentForm = ({ documentData, progressIndex, handleSetIndex }) => {
                     </div>
                 </div>
                 <div className='w-full md:w-4/5 lg:w-2/5'>
-                    <h1 className='text-xl text-left text-gray-800 mb-2'><b>Умови обробки персональної інформації*</b></h1>
-                    <div id='payment_window' className='w-full border-2 border-mainBlue h-60 p-3 overflow-y-scroll rounded-xl'>
-                        <p className='text-gray-800'>
+                    <h1 className='text-xl text-left text-gray-800 mb-2 font-medium'>Умови обробки персональної інформації</h1>
+                    <div id='payment_window' className='mt-3 w-full bg-white h-60 px-6 py-3 overflow-y-scroll rounded-2xl'>
+                        <p className='text-sm text-gray-800'>
                             {terms && terms.PageContent}
                         </p>
                     </div>
