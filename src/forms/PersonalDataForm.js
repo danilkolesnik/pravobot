@@ -38,6 +38,39 @@ const PersonalDataForm = ({
       }
     };
 
+    const requiredFields = [
+      `[${person}_NAME]`,
+      `[${person}_LASTNAME]`,
+      `[${person}_SURNAME]`,
+      `[${person}_BIRTH_DATE]`,
+      `[${person}_PASSPORT_SERIES]`,
+      `[${person}_PASSPORT_NUMBER]`,
+      `[${person}_ID_NUMBER]`,
+      `[${person}_REGISTRATION_INDEX]`,
+      `[${person}_REGISTRATION_CITY]`,
+      `[${person}_REGISTRATION_STREET]`,
+      `[${person}_REGISTRATION_HOUSE]`
+    ];
+    
+    const additionalFields = [
+      `[${person}_ACTUAL_CITY]`,
+      `[${person}_ACTUAL_STREET]`,
+      `[${person}_ACTUAL_HOUSE]`
+    ];
+    
+    if (!isAddressMatch) {
+      requiredFields.push(...additionalFields);
+    } else {
+      additionalFields.forEach(field => {
+        const index = requiredFields.indexOf(field);
+        if (index !== -1) {
+          requiredFields.splice(index, 1);
+        }
+      });
+    }
+    
+    const isFormComplete = requiredFields.every((field) => selectedAnswers[field]?.trim());
+    
     return (
           <div className='flex flex-col md:flex-row gap-8 mt-8'>
 
@@ -93,7 +126,7 @@ const PersonalDataForm = ({
                   <CustomInput
                     value={selectedAnswers[`[${person}_PASSPORT_SERIES]`] || ''}
                     onChange={(newValue) => handleDataChange(`[${person}_PASSPORT_SERIES]`, newValue)}
-                    placeholder="СЕРІЯ"
+                    placeholder="Серiя"
                   />
                   <CustomInput
                     value={selectedAnswers[`[${person}_PASSPORT_NUMBER]`] || ''}
@@ -202,7 +235,10 @@ const PersonalDataForm = ({
                 <button type="button" onClick={() => {
                     window.scrollTo(0, 0);
                     handleNextStep();
-                  }} className="w-full mt-6 bg-mainBlue text-white px-4 py-2 rounded-2xl">
+                  }}
+                  className={`w-full mt-10 mb-10 bg-mainBlue text-white px-4 py-2 rounded-2xl ${isFormComplete ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-300 opacity-50'}`}
+                  disabled={!isFormComplete}
+                >
                   Зберегти
                 </button>
               </div>

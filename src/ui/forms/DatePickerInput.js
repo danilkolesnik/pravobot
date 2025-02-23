@@ -12,7 +12,7 @@ const DatePickerInput = ({ value, onClick, onSelect, showCalendar }) => {
                 value={value}
                 onClick={onClick}
                 placeholder="Выберите дату"
-                className="w-full p-2 rounded-xl text-gray-800 cursor-pointer focus:outline-none"
+                className="w-full p-2 pl-4 rounded-xl text-gray-800 cursor-pointer focus:outline-none"
             />
             <span className='absolute top-3 right-3'>
                 <CalendarIcon />

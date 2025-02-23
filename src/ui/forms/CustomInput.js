@@ -9,7 +9,7 @@ const CustomInput = ({ inputWidth, value, onChange, placeholder }) => {
             onChange={(e) => onChange(e.target.value)}
             type="text"
             placeholder={placeholder}
-            className={`h-11 leading-[32] text-gray-900 p-2 rounded-xl focus:outline-none`}
+            className={`h-11 leading-[32] text-gray-900 p-4 rounded-2xl focus:outline-none`}
             style={{ width: widthStyle }}
         />
     );
