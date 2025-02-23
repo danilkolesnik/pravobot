@@ -176,7 +176,7 @@ const CustomData = ({
                                                 {question.Question}
                                             </label>
                                             <select
-                                                className="w-full border p-2 rounded-xl text-gray-800"
+                                                className="w-full p-3 rounded-xl text-gray-800 focus:outline-none focus:ring-0"
                                                 value={selectedAnswer}
                                                 onChange={(e) => {
                                                     const selectedAnswer = e.target.value;
