@@ -2,6 +2,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { Loader } from "@component/ui/loader";
+import ProgressBar from "@component/ui/ProgressBar";
 import Header from "@component/components/Header";
 import Footer from "@component/components/Footer";
 import PersonalDataForm from "@component/forms/PersonalDataForm";
@@ -56,24 +57,6 @@ const CreateDocument = () => {
     ];
     return names[index-1] || "Невiдомий етап"; 
   };
-
-  const ProgressBar = ({ progressIndex }) => {
-
-    const totalSteps = 4;
-
-    return (
-      <div className="w-full flex gap-2">
-        {Array.from({ length: totalSteps }).map((_, index) => (
-          <div
-            key={index}
-            className={`h-1 flex-1 rounded-xl ${
-              index < progressIndex ? 'bg-mainBlue' : 'bg-white'
-            }`}
-          ></div>
-        ))}
-      </div>
-    );
-  };
   
   useEffect(() => {
     const queryString = window.location.search;
@@ -90,7 +73,7 @@ const CreateDocument = () => {
           <>
             <Header title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />
             {/* Progress bar */}
-            <div className='w-4/5'>
+            <div className='sticky w-4/5' style={{ top: '5rem' }}>
               <ProgressBar progressIndex={progressIndex} />
               {/* <div id='progress_bar' className={`h-1 self-start bg-mainBlue rounded-xl`} style={{ width: `${(progressIndex / 4) * 100}%` }}></div> */}
             </div>

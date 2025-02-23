@@ -1,8 +1,10 @@
 'use client';
 import React, { useEffect, useState } from "react";
 import { DayPicker } from "react-day-picker";
+import { resetToMidnightUTC } from "@component/services/resetToMidnightUTC";
 import "react-day-picker/dist/style.css";
 import ChildrenForm from "./ChildrenForm";
+import DatePickerInput from '../ui/forms/DatePickerInput';
 
 const DetailsForm = ({ 
         progressIndex, 
@@ -59,43 +61,25 @@ const DetailsForm = ({
 
     const renderFieldInput = (slide) => {
 
-        const resetToMidnightUTC = (date) => {
-            const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-            return utcDate;
-        };
-
         if (slide.Validation === "Date") {
-
             return (
-                <div key={slide.id} className="w-full relative">
-                    <input
-                        type="text"
-                        readOnly
-                        value={selectedAnswers[slide.FieldShortcode] ? selectedAnswers[slide.FieldShortcode] : ''}
-                        onClick={() => setShowCalendar(!showCalendar)}
-                        placeholder={slide.FieldTitle}
-                        className="w-full border p-2 rounded-xl text-gray-800 cursor-pointer"
-                    />
-                    {showCalendar && (
-                        <div className="absolute z-10 bg-white border p-2 rounded-xl mt-2">
-                            <DayPicker
-                                mode="single"
-                                selected={selectedAnswers[slide.FieldShortcode] ? new Date(selectedAnswers[slide.FieldShortcode]) : undefined}
-                                onSelect={(date) => {
-                                    if (date) {
-                                        const normalizedDate = resetToMidnightUTC(date);
-                                        handleFieldChange(
-                                            slide.FieldShortcode,
-                                            normalizedDate.toISOString().split("T")[0],
-                                            slide.Validation
-                                        );
-                                        setShowCalendar(false);
-                                    }
-                                }}
-                            />
-                        </div>
-                    )}
-                </div>
+                <DatePickerInput
+                    key={slide.id}
+                    value={selectedAnswers[slide.FieldShortcode] ? selectedAnswers[slide.FieldShortcode] : ''}
+                    onClick={() => setShowCalendar((prev) => !prev)}
+                    onSelect={(date) => {
+                        if (date) {
+                            const normalizedDate = resetToMidnightUTC(date);
+                            handleFieldChange(
+                                slide.FieldShortcode,
+                                normalizedDate.toISOString().split("T")[0],
+                                slide.Validation
+                            );
+                            setShowCalendar(false);
+                        }
+                    }}
+                    showCalendar={showCalendar}
+                />
             );
         } else {
             return (
@@ -123,7 +107,6 @@ const DetailsForm = ({
     return (
         <div className="flex flex-col md:flex-row gap-8 mt-8">
             <nav className="w-full md:w-2/5 flex flex-col gap-2 items-left">
-
                 {documentData && combinedSlider?.map((item, index) => (
                     <button 
                         key={item.id}
@@ -133,7 +116,6 @@ const DetailsForm = ({
                         {item.SectionTitle || item.AdditionalFieldName}
                     </button>
                 ))}
-
             </nav>
 
             <form className="w-full">

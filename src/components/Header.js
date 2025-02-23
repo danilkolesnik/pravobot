@@ -53,7 +53,7 @@ const Header = () => {
     };
 
     return (
-        <header className='w-full flex flex-row justify-center sticky'>
+        <header className='w-full flex flex-row justify-center bg-slate-100 sticky top-0 z-99'>
             <div className='w-4/5 flex flex-row justify-between items-center mx-6 py-6'>
                 <div className='flex flex-row gap-3 items-center'>
                     <Logo />
