@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CustomInput from "@component/ui/forms/CustomInput";
 import { resetToMidnightUTC } from "@component/services/resetToMidnightUTC";
 import "react-day-picker/dist/style.css";
-import ChildrenForm from "./ChildrenForm";
+import ChildrenForm from "./addons/ChildrenForm";
 import DatePickerInput from '../ui/forms/DatePickerInput';
 
 const DetailsForm = ({ 
@@ -21,8 +21,8 @@ const DetailsForm = ({
     };
 
     const [activeSection, setActiveSection] = useState(0);
-
     const [showCalendar, setShowCalendar] = useState(false);
+    const [completedSteps, setCompletedSteps] = useState({});
 
     const handleAnswerChange = (questionShortcode, FinalField) => {
         setSelectedAnswers((prevAnswers) => ({
@@ -47,7 +47,8 @@ const DetailsForm = ({
         }));
     };
 
-    const handleNextStep = () => {
+    const handleSave = () => {
+        window.scrollTo(0, 0);
         if (activeSection+1 < documentData.sectionsSlider.length) {
             setActiveSection(activeSection+1);
         } else {
@@ -92,14 +93,24 @@ const DetailsForm = ({
             );
         }
     };
+    
+    const requiredFields = documentData.sectionsSlider[activeSection]?.fieldsSlider.flatMap(field => 
+        field.slider.map(slide => slide.FieldShortcode)
+    ) || [];
+
+    const isFormComplete = requiredFields.every((field) => selectedAnswers[field]?.trim());
+
+    // console.log('requiredFields:', requiredFields);
+    // console.log('isFormComplete:', isFormComplete);
 
     const combinedSlider = [
         ...documentData?.sectionsSlider,
         ...(documentData?.additionalSlider || []),
     ];
 
-    useEffect(() => { 
-        if (!documentData.sectionsSlider) handleSetIndex(progressIndex + 1)
+    useEffect(() => {
+        if (!documentData.sectionsSlider) handleSetIndex(progressIndex + 1);
+        console.log('documentData:', documentData);
     }, [documentData]);
 
     return (
@@ -167,9 +178,7 @@ const DetailsForm = ({
                             })}
 
                         {!documentData.sectionsSlider[activeSection] && documentData?.additionalSlider?.map((item) => {
-
                             const ComponentToRender = componentMap[item.AdditionalFieldCode];
-
                             if (ComponentToRender) {
                                 return <ComponentToRender selectedAnswers={selectedAnswers} handleAnswerChange={handleAnswerChange} handleFieldChange={handleFieldChange} key={item.id} />;
                             }
@@ -177,11 +186,9 @@ const DetailsForm = ({
 
                     <button
                         type="button"
-                        onClick={() => {
-                            window.scrollTo(0, 0);
-                            handleNextStep();
-                        }}
+                        onClick={handleSave}
                         className="w-full mt-6 bg-mainBlue text-white px-4 py-2 rounded-2xl"
+                        disabled={!isFormComplete}
                     >
                         Далі
                     </button>

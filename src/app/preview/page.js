@@ -1,7 +1,7 @@
 'use client';
 import Header from "@component/components/Header";
 import Footer from "@component/components/Footer";
-import DocumentPreview from "@component/forms/DocumentPreview";
+import DocumentPreview from "@component/forms/primary/DocumentPreview";
 
 const Preview = () => {
     return (

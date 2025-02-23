@@ -5,15 +5,15 @@ import { Loader } from "@component/ui/loader";
 import ProgressBar from "@component/ui/ProgressBar";
 import Header from "@component/components/Header";
 import Footer from "@component/components/Footer";
-import PersonalDataForm from "@component/forms/PersonalDataForm";
-import DetailsForm from "@component/forms/DetailsForm";
-import PaymentForm from "@component/forms/PaymentForm";
+import PersonalData from "@component/forms/primary/PersonalData";
+import CustomData from "@component/forms/primary/CustomData";
+import PaymentForm from "@component/forms/primary/Payment";
 
 const CreateDocument = () => {
 
   const router = useRouter();
 
-  const [progressIndex, setProgressIndex] = useState(1);
+  const [progressIndex, setProgressIndex] = useState(2);
   const [isLoading, setIsLoading] = useState(true);
   const [documentData, setDocumentData] = useState(null);
   const [updatedSample, setUpdatedSample] = useState(null);
@@ -81,7 +81,7 @@ const CreateDocument = () => {
             <div className="flex flex-col min-h-screen w-4/5 mt-8 mb-8 mx-auto">
               <main className="flex-1">
                 {progressIndex === 1 && 
-                  <PersonalDataForm 
+                  <PersonalData 
                     progressIndex={progressIndex} 
                     handleSetIndex={handleSetIndex} 
                     selectedAnswers={selectedAnswers} 
@@ -90,7 +90,7 @@ const CreateDocument = () => {
                     setUpdatedSample={setUpdatedSample} 
                   />}
                 {progressIndex === 2 && 
-                  <DetailsForm 
+                  <CustomData 
                     progressIndex={progressIndex} 
                     handleSetIndex={handleSetIndex}
                     selectedAnswers={selectedAnswers} 

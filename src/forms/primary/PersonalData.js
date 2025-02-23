@@ -6,7 +6,7 @@ import { useState } from "react";
 import LocationIcon from "@component/assets/icons/locationIcon";
 import SuccessIcon from "@component/assets/icons/successIcon";
 
-const PersonalDataForm = ({ 
+const PersonalData = ({ 
     progressIndex, 
     handleSetIndex, 
     selectedAnswers, 
@@ -20,7 +20,6 @@ const PersonalDataForm = ({
       COMPLAINANT: false,
       DEFENDANT: false,
     });
-    const [isSaved, setIsSaved] = useState(false);  // Для отслеживания сохранения
     
     const handleButtonClick = (personType) => {
       setPerson(personType);
@@ -36,25 +35,11 @@ const PersonalDataForm = ({
       }));
     };
 
-    const handleNextStep = () => {
-      if (person === 'COMPLAINANT') {
-        setPerson('DEFENDANT');
-      } else {
-        let updatedSample = documentData.Sample;
-        Object.keys(selectedAnswers).forEach((shortcode) => {
-            updatedSample = updatedSample.replace(shortcode, selectedAnswers[shortcode]);
-        });
-        setUpdatedSample(updatedSample);
-        handleSetIndex(progressIndex + 1);
-      }
-    };
-
     const handleSave = () => {
       window.scrollTo(0, 0);
       if (person === 'COMPLAINANT') {
         setPerson('DEFENDANT');
         setCompletedSteps((prev) => ({ ...prev, [person]: true }));
-        setIsSaved(true); 
       } else {
         let updatedSample = documentData.Sample;
         Object.keys(selectedAnswers).forEach((shortcode) => {
@@ -291,4 +276,4 @@ const PersonalDataForm = ({
     );
 };
 
-export default PersonalDataForm;
+export default PersonalData;
