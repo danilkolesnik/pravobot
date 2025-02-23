@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from "react";
-import { DayPicker } from "react-day-picker";
+import CustomInput from "@component/ui/forms/CustomInput";
 import { resetToMidnightUTC } from "@component/services/resetToMidnightUTC";
 import "react-day-picker/dist/style.css";
 import ChildrenForm from "./ChildrenForm";
@@ -60,7 +60,6 @@ const DetailsForm = ({
     };
 
     const renderFieldInput = (slide) => {
-
         if (slide.Validation === "Date") {
             return (
                 <DatePickerInput
@@ -83,13 +82,12 @@ const DetailsForm = ({
             );
         } else {
             return (
-                <input
+                <CustomInput 
                     key={slide.id}
                     value={selectedAnswers[slide.FieldShortcode] || ''}
-                    onChange={(e) => handleFieldChange(slide.FieldShortcode, e.target.value, slide.Validation)}
+                    onChange={(newValue) => handleFieldChange(slide.FieldShortcode, newValue, slide.Validation)}
                     type={slide.Validation === "digits_only" ? "number" : "text"}
                     placeholder={slide.FieldTitle}
-                    className={`w-${slide.FieldWidth} border p-2 rounded-xl text-gray-800`}
                 />
             );
         }
@@ -124,9 +122,9 @@ const DetailsForm = ({
                         documentData.sectionsSlider[activeSection]?.fieldsSlider?.map((field) => (
                             <div className="flex flex-wrap gap-3 mt-3" key={field.id}>
                                 <label className='text-l font-medium text-gray-800'>
-                                    <span style={{ color: 'red' }}>*{' '}</span>{field.FieldSectionTitle}
+                                    {field.FieldSectionTitle}
                                 </label>
-                                <div className='w-full flex flex-wrap'>
+                                <div className='w-full flex flex-wrap gap-3'>
                                     {field.slider.map((slide) => renderFieldInput(slide))}
                                 </div>
                             </div>
@@ -142,7 +140,6 @@ const DetailsForm = ({
                                 return (
                                     <div className="mt-6 flex flex-wrap gap-3" key={question.id}>
                                         <label className="text-l font-medium text-gray-800">
-                                            <span style={{ color: "red" }}>*{' '}</span>
                                             {question.Question}
                                         </label>
                                         <select
