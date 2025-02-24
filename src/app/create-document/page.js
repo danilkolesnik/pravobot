@@ -13,7 +13,7 @@ const CreateDocument = () => {
 
   const router = useRouter();
 
-  const [progressIndex, setProgressIndex] = useState(2);
+  const [progressIndex, setProgressIndex] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [documentData, setDocumentData] = useState(null);
   const [updatedSample, setUpdatedSample] = useState(null);
@@ -53,11 +53,14 @@ const CreateDocument = () => {
     getDocuments(documentName);
   }, []);
 
+  useEffect(() => { console.log(updatedSample) },[updatedSample]);
+
   return (
     <div className="min-h-screen flex flex-col items-center">
       <Suspense fallback={<Loader />}>
         {isLoading ? (
-          <Loader /> 
+          // <Loader /> 
+          <></>
         ) : documentData ? (
           <>
             <Header progressIndex={progressIndex} setProgressIndex={setProgressIndex} title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />

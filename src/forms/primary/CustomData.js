@@ -247,12 +247,12 @@ const CustomData = ({
                         Object.keys(connectedAddons)[activeSection - Object.keys(selectedAddons).length] ? (
                             React.createElement(
                             addons[Object.keys(connectedAddons)[activeSection - Object.keys(selectedAddons).length]]?.component,
-                            { someProp: 'value', anotherProp: 'anotherValue' }
+                            { selectedAnswers: selectedAnswers, handleAnswerChange: handleAnswerChange, handleFieldChange: handleFieldChange }
                             )
                         ) : (
                             React.createElement(
                             addons[Object.keys(connectedAddons)[0]]?.component,
-                            { someProp: 'value', anotherProp: 'anotherValue' }
+                            { selectedAnswers: selectedAnswers, handleAnswerChange: handleAnswerChange, handleFieldChange: handleFieldChange }
                             )
                         )
                     )}

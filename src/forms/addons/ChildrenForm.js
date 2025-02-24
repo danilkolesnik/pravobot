@@ -3,11 +3,12 @@ import { useState } from "react";
 import PlusIcon from "@component/assets/icons/plusIcon";
 import CustomInput from "@component/ui/forms/CustomInput";
 import DatePickerInput from "@component/ui/forms/DatePickerInput";
+import { resetToMidnightUTC } from "@component/services/resetToMidnightUTC";
 
-const ChildrenForm = () => {
-    
+const ChildrenForm = ({ selectedAnswers, handleAnswerChange, handleFieldChange }) => {
+
     const [childrenForms, setChildrenForms] = useState([]);
-    const [showCalendar, setShowCalendar] = useState({}); 
+    const [showCalendar, setShowCalendar] = useState(false); 
 
     const AddChild = () => {
         return (
@@ -57,20 +58,38 @@ const ChildrenForm = () => {
                     <div className="w-full flex flex-col gap-3 mt-6">
                         <label className='text-l font-medium text-gray-800 text-black'>ПIБ дитини</label>
                         <CustomInput 
+                            value={selectedAnswers[`[${index+1}_CHILDREN_LASTNAME]`] || ''}
+                            onChange={(newValue) => handleFieldChange(`[${index+1}_CHILDREN_LASTNAME]`, newValue, 'none')}
                             placeholder={'Прiзвище'}
                         />
-                        <CustomInput 
+                        <CustomInput
+                            value={selectedAnswers[`[${index+1}_CHILDREN_NAME]`] || ''}
+                            onChange={(newValue) => handleFieldChange(`[${index+1}_CHILDREN_NAME]`, newValue, 'none')}
                             placeholder={'Iм\'я'}
                         />
-                        <CustomInput 
+                        <CustomInput
+                            value={selectedAnswers[`[${index+1}_CHILDREN_SURNAME]`] || ''}
+                            onChange={(newValue) => handleFieldChange(`[${index+1}_CHILDREN_SURNAME]`, newValue, 'none')}
                             placeholder={'По батьковi'}
                         />
                     </div>
                     <div className="w-full flex flex-col gap-3 mt-6">
                         <label className='text-l font-medium text-gray-800 text-black'>Дата народження дитини</label>
                         <DatePickerInput
-
-                            // showCalendar={showCalendar}
+                            value={selectedAnswers[`[${index+1}_CHILDREN_BIRTH_DATE]`] || ''}
+                            onClick={() => setShowCalendar((prev) => !prev)}
+                            onSelect={(date) => {
+                                if (date) {
+                                    const normalizedDate = resetToMidnightUTC(date);
+                                    handleFieldChange(
+                                        `[${index+1}_CHILDREN_BIRTH_DATE]`,
+                                        normalizedDate.toISOString().split("T")[0],
+                                        'none'
+                                    );
+                                    setShowCalendar(false);
+                                }
+                            }}
+                            showCalendar={showCalendar}
                         />
                     </div>
                     <div className="w-full flex flex-col gap-3 mt-6">

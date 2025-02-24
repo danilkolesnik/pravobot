@@ -5,7 +5,7 @@ import CalendarIcon from '@component/assets/icons/calendarIcon';
 
 const DatePickerInput = ({ value, onClick, onSelect, showCalendar }) => {
     return (
-        <div className="w-full relative">
+        <div className="w-full relative z-9">
             <input
                 type="text"
                 readOnly

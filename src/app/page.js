@@ -67,7 +67,7 @@ const Home = () => {
     return (
         <div className='min-h-screen flex flex-col items-center'>
             
-            {isLoading ? <Loader /> : 
+            {isLoading ? <></> : 
                 (<>
                     <Header />
                     <main className='flex flex-col flex-grow items-center mt-4 md:mt-28 w-4/5 md:w-1/3'>
