@@ -46,17 +46,6 @@ const CreateDocument = () => {
   const handleSetIndex = (index) => {
     setProgressIndex(index);
   };
-
-  const getProgressName = (index) => {
-    const names = [
-        "Тип позову", 
-        "Персональнi данi",
-        "Деталi справи",
-        "Онлайн-оплата",
-        "Готовий позов"
-    ];
-    return names[index-1] || "Невiдомий етап"; 
-  };
   
   useEffect(() => {
     const queryString = window.location.search;
@@ -71,7 +60,7 @@ const CreateDocument = () => {
           <Loader /> 
         ) : documentData ? (
           <>
-            <Header title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />
+            <Header progressIndex={progressIndex} setProgressIndex={setProgressIndex} title={'ПОЗОВ НА РОЗЛУЧЕННЯ'} />
             {/* Progress bar */}
             <div className='sticky w-4/5' style={{ top: '5rem' }}>
               <ProgressBar progressIndex={progressIndex} />

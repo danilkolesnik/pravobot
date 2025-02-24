@@ -39,10 +39,21 @@ const ChildrenForm = () => {
 
     return (
         <div className="w-full">
-            {/* <AddChild /> */}
+            {!childrenForms.length && (
+                <AddChild />
+            )}
             {childrenForms.map((child, index) => (
                 <div key={child.id} className='mb-8'>
-                    <AddChild />
+                    <div className="mt-3 flex flex-row gap-3">
+                        <div className='bg-white h-14 w-14 rounded-2xl flex flex-row justify-center items-center'>
+                            <PlusIcon />
+                        </div>
+                        <select className="grow w-full text-gray-800 p-2 rounded-xl">
+                            <option value="">Оберіть стать дитини</option>
+                            <option value="Хлопчик">Чоловiча</option>
+                            <option value="Дівчинка">Жiноча</option>
+                        </select>
+                    </div>
                     <div className="w-full flex flex-col gap-3 mt-6">
                         <label className='text-l font-medium text-gray-800 text-black'>ПIБ дитини</label>
                         <CustomInput 
@@ -73,11 +84,11 @@ const ChildrenForm = () => {
                             </option>
                         </select>
                     </div>
-                    {/* {index === childrenForms.length - 1 && (
+                    {index === childrenForms.length - 1 && (
                         <div className='mt-8'>
                             <AddChild />
                         </div>
-                    )} */}
+                    )}
                 </div>
             ))}      
         </div>

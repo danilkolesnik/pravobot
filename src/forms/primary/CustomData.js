@@ -37,8 +37,11 @@ const CustomData = ({
     const [completedSections, setCompletedSections] = useState({});
 
     useEffect(() => {
-        console.log(documentData);
-    }, []);
+        console.log(Object.keys(connectedAddons)[activeSection - Object.keys(selectedAddons).length]);
+        console.log(addons[Object.keys(connectedAddons)[0]]);
+        console.log('index', activeSection - Object.keys(selectedAddons).length);
+        console.log('vot:', Object.keys(connectedAddons)[activeSection - Object.keys(selectedAddons).length])
+    });
 
     const combinedSections = [
         ...documentData?.sectionsSlider || [],

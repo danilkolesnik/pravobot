@@ -6,8 +6,9 @@ import { supabase } from '@component/supabase/supabaseClient';
 import Logo from '@component/assets/icons/logo';
 import Sidebar from './Sidebar';
 import CloseIcon from '@component/assets/icons/closeIcon';
+import ReturnIcon from '@component/assets/icons/returnIcon';
 
-const Header = () => {
+const Header = ({ progressIndex, setProgressIndex }) => {
 
     const router = useRouter();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -16,8 +17,16 @@ const Header = () => {
     const [password, setPassword] = useState('');
     const [isLoginMode, setIsLoginMode] = useState(true);
 
-    const handleReturn = () => {
+    const handleHome = () => {
         router.push('/');
+    };
+
+    const handleReturn = () => {
+        if (progressIndex >= 2) {
+            setProgressIndex(progressIndex - 1)
+        } else {
+            router.push('/');
+        }
     };
 
     const toggleSidebar = () => {
@@ -52,12 +61,32 @@ const Header = () => {
         }
     };
 
+    const getProgressName = (index) => {
+        const names = [
+            "Тип позову", 
+            "Персональнi данi",
+            "Деталi справи",
+            "Онлайн-оплата",
+            "Готовий позов"
+        ];
+        return names[index-1] || "Невiдомий етап"; 
+    };
+
     return (
         <header className='w-full flex flex-row justify-center bg-slate-100 sticky top-0 z-99'>
+            
             <div className='w-4/5 flex flex-row justify-between items-center mx-6 py-6'>
                 <div className='flex flex-row gap-3 items-center'>
-                    <Logo />
-                    <h1 onClick={handleReturn} className='text-xl text-gray-800 text-bold font-bold cursor-pointer select-none'>Pravobot</h1>
+                    { progressIndex ? (
+                        <ReturnIcon onClick={handleReturn}/>
+                    ) : (
+                        <Logo />
+                    )}
+                    { progressIndex ? (
+                        <h1 onClick={handleReturn} className='text-xl text-gray-800 text-bold font-bold cursor-pointer select-none'>{getProgressName(progressIndex)}</h1>
+                    ) : (
+                        <h1 onClick={handleHome} className='text-xl text-gray-800 text-bold font-bold cursor-pointer select-none'>Pravobot</h1>
+                    )} 
                 </div>
                 {/* {title && <h1 className='hidden md:block text-3xl text-blue-500 font-medium'>{title}</h1>} */}
                 <button onClick={toggleSidebar}>

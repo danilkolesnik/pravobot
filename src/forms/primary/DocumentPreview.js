@@ -51,7 +51,7 @@ const DocumentPreview = () => {
         <div className="flex flex-col items-center gap-8 mt-8">
             {isLoading ? (
                 <Loader />
-            ) : true && (
+            ) : finalSample && (
                 <>
                     <div className="w-2/4 text-left">
                         <h1 className="text-3xl font-medium text-gray-800">Дякуємо!</h1>
