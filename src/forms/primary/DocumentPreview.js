@@ -53,7 +53,7 @@ const DocumentPreview = () => {
                 <Loader />
             ) : sample && (
                 <>
-                    <div className="w-2/4 text-left">
+                    <div className="w-full md:w-2/4 text-left">
                         <h1 className="text-3xl font-medium text-gray-800">Дякуємо!</h1>
                         <p className="text-gray-800 mt-2">Ваш позов на розлучення готовий</p>
                         <div className='mt-6'>
